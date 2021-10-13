@@ -1,13 +1,19 @@
 <script>
 	import { users, count, min, max } from '../../stores/modstore';
 	import ModBox from './ModBox.svelte';
-	const rowsLg = Math.ceil($count / 5);
-	const rowsMd = Math.ceil($count / 3);
+
+	let styled = '';
+	$: {
+		// used for styling the grid
+		const rowsLg = Math.ceil($count / 5);
+		const rowsMd = Math.ceil($count / 3);
+		styled = `--rows-lg: ${rowsLg}; --rows-md: ${rowsMd};`;
+	}
 </script>
 
 <span>Count: {$count}</span>
 <span>Min: {$min} - Max: {$max}</span>
-<div style="--rows-lg: {rowsLg}; --rows-md: {rowsMd};">
+<div style={styled}>
 	{#each $users as user (user.num)}
 		<ModBox {...user} />
 	{/each}

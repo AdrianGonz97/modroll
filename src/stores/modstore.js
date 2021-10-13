@@ -1,7 +1,7 @@
 import { writable, derived } from 'svelte/store';
 
 export let min = writable(1);
-export let max = writable(100);
+export let max = writable(50);
 export let count = derived(
 	[min, max],
 	([$min, $max]) => $max - $min + 1 // inclusive
