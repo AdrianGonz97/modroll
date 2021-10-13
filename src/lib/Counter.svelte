@@ -1,11 +1,11 @@
 <script>
 	import { spring } from 'svelte/motion';
 
-	export let count = 0;
+	export let count;
 	export let label;
 
 	const displayed_count = spring();
-	$: displayed_count.set(count);
+	$: displayed_count.set($count);
 	$: offset = modulo($displayed_count, 1);
 
 	function modulo(n, m) {
@@ -25,7 +25,7 @@
 <div class="container">
 	<div>{label}</div>
 	<div class="counter">
-		<button on:click={() => (count = decrement(count))} aria-label="Decrease the counter by one">
+		<button on:click={() => ($count = decrement($count))} aria-label="Decrease the counter by one">
 			<svg aria-hidden="true" viewBox="0 0 1 1">
 				<path d="M0,0.5 L1,0.5" />
 			</svg>
@@ -38,7 +38,7 @@
 			</div>
 		</div>
 
-		<button on:click={() => (count = increment(count))} aria-label="Increase the counter by one">
+		<button on:click={() => ($count = increment($count))} aria-label="Increase the counter by one">
 			<svg aria-hidden="true" viewBox="0 0 1 1">
 				<path d="M0,0.5 L1,0.5 M0.5,0 L0.5,1" />
 			</svg>

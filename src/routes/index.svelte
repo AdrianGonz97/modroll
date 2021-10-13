@@ -25,8 +25,8 @@
 
 	<h2>Edit the numbers below to adjust</h2>
 	<div class="counters">
-		<Counter count={$min} label="Min Number" />
-		<Counter count={$max} label="Max Number" />
+		<Counter count={min} label="Min Number" />
+		<Counter count={max} label="Max Number" />
 	</div>
 	<ModContainer />
 </section>
