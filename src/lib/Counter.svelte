@@ -1,7 +1,8 @@
 <script>
 	import { spring } from 'svelte/motion';
 
-	let count = 0;
+	export let count = 0;
+	export let label;
 
 	const displayed_count = spring();
 	$: displayed_count.set(count);
@@ -11,30 +12,49 @@
 		// handle negative numbers
 		return ((n % m) + m) % m;
 	}
+
+	function decrement(num) {
+		return num - 1 < 1 ? 1 : --num;
+	}
+
+	function increment(num) {
+		return num + 1 > 999 ? 999 : ++num;
+	}
 </script>
 
-<div class="counter">
-	<button on:click={() => (count -= 1)} aria-label="Decrease the counter by one">
-		<svg aria-hidden="true" viewBox="0 0 1 1">
-			<path d="M0,0.5 L1,0.5" />
-		</svg>
-	</button>
+<div class="container">
+	<div>{label}</div>
+	<div class="counter">
+		<button on:click={() => (count = decrement(count))} aria-label="Decrease the counter by one">
+			<svg aria-hidden="true" viewBox="0 0 1 1">
+				<path d="M0,0.5 L1,0.5" />
+			</svg>
+		</button>
 
-	<div class="counter-viewport">
-		<div class="counter-digits" style="transform: translate(0, {100 * offset}%)">
-			<strong style="top: -100%" aria-hidden="true">{Math.floor($displayed_count + 1)}</strong>
-			<strong>{Math.floor($displayed_count)}</strong>
+		<div class="counter-viewport">
+			<div class="counter-digits" style="transform: translate(0, {100 * offset}%)">
+				<strong style="top: -100%" aria-hidden="true">{Math.floor($displayed_count + 1)}</strong>
+				<strong>{Math.floor($displayed_count)}</strong>
+			</div>
 		</div>
-	</div>
 
-	<button on:click={() => (count += 1)} aria-label="Increase the counter by one">
-		<svg aria-hidden="true" viewBox="0 0 1 1">
-			<path d="M0,0.5 L1,0.5 M0.5,0 L0.5,1" />
-		</svg>
-	</button>
+		<button on:click={() => (count = increment(count))} aria-label="Increase the counter by one">
+			<svg aria-hidden="true" viewBox="0 0 1 1">
+				<path d="M0,0.5 L1,0.5 M0.5,0 L0.5,1" />
+			</svg>
+		</button>
+	</div>
 </div>
 
 <style>
+	.container {
+		display: flex;
+		/* justify-content: center; */
+		align-items: center;
+		flex-direction: column;
+		margin: 1rem;
+	}
+
 	.counter {
 		display: flex;
 		border-top: 1px solid rgba(0, 0, 0, 0.1);
@@ -70,7 +90,7 @@
 	}
 
 	.counter-viewport {
-		width: 8em;
+		width: 5em;
 		height: 4em;
 		overflow: hidden;
 		text-align: center;
@@ -84,7 +104,7 @@
 		height: 100%;
 		font-weight: 400;
 		color: var(--accent-color);
-		font-size: 4rem;
+		font-size: 3rem;
 		align-items: center;
 		justify-content: center;
 	}

@@ -4,6 +4,7 @@
 
 <script>
 	import Counter from '$lib/Counter.svelte';
+	import ModContainer from '$lib/modbox/ModContainer.svelte';
 </script>
 
 <svelte:head>
@@ -12,21 +13,21 @@
 
 <section>
 	<h1>
-		<div class="welcome">
+		<!-- <div class="welcome">
 			<picture>
 				<source srcset="svelte-welcome.webp" type="image/webp" />
 				<img src="svelte-welcome.png" alt="Welcome" />
 			</picture>
-		</div>
-
-		to your new<br />SvelteKit app
+		</div> -->
+		Mod Rolly Polly
 	</h1>
 
-	<h2>
-		try editing <strong>src/routes/index.svelte</strong>
-	</h2>
-
-	<Counter />
+	<h2>Edit the numbers below to adjust</h2>
+	<div class="counters">
+		<Counter count={1} label="Min Number" />
+		<Counter count={50} label="Max Number" />
+	</div>
+	<ModContainer count={50} />
 </section>
 
 <style>
@@ -42,7 +43,13 @@
 		width: 100%;
 	}
 
-	.welcome {
+	.counters {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+	}
+	/* .welcome {
 		position: relative;
 		width: 100%;
 		height: 0;
@@ -55,5 +62,5 @@
 		height: 100%;
 		top: 0;
 		display: block;
-	}
+	} */
 </style>
