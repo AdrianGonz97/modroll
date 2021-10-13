@@ -3,6 +3,7 @@
 </script>
 
 <script>
+	import { min, max } from '../stores/modstore';
 	import Counter from '$lib/Counter.svelte';
 	import ModContainer from '$lib/modbox/ModContainer.svelte';
 </script>
@@ -24,10 +25,10 @@
 
 	<h2>Edit the numbers below to adjust</h2>
 	<div class="counters">
-		<Counter count={1} label="Min Number" />
-		<Counter count={50} label="Max Number" />
+		<Counter count={$min} label="Min Number" />
+		<Counter count={$max} label="Max Number" />
 	</div>
-	<ModContainer count={50} />
+	<ModContainer />
 </section>
 
 <style>
