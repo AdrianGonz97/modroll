@@ -15,13 +15,13 @@
 		grid-template-columns: 1fr 5fr;
 		grid-auto-rows: 2rem;
 		grid-gap: 0.2rem;
-		align-items: center;
 	}
 	input {
 		width: 10rem;
-		height: 1.7rem;
 	}
 	span {
 		text-align: center;
+		align-self: center;
+		padding: 0.2rem;
 	}
 </style>
