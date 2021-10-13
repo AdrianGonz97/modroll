@@ -5,6 +5,7 @@
 <script>
 	import { min, max } from '../stores/modstore';
 	import Counter from '$lib/Counter.svelte';
+	import RollButton from '$lib/RollButton.svelte';
 	import ModContainer from '$lib/modbox/ModContainer.svelte';
 </script>
 
@@ -28,6 +29,7 @@
 		<Counter count={min} label="Min Number" />
 		<Counter count={max} label="Max Number" />
 	</div>
+	<RollButton />
 	<ModContainer />
 </section>
 

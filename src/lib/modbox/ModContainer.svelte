@@ -11,6 +11,7 @@
 	}
 </script>
 
+<!-- Temp for debugging -->
 <span>Count: {$count}</span>
 <span>Min: {$min} - Max: {$max}</span>
 <div style={styled}>
