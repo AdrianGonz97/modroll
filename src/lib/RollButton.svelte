@@ -8,7 +8,6 @@
 			player.play();
 			// randomly pick the user here
 		}
-		$: player.volume = volume / 100;
 	};
 	function setVolume() {
 		player.volume = volume / 100;
