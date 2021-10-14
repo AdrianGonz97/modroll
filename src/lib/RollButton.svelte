@@ -5,6 +5,7 @@
 
 	const handleClick = () => {
 		if (paused) {
+			setVolume();
 			player.play();
 			// randomly pick the user here
 		}
