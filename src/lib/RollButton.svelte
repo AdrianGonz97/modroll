@@ -2,22 +2,26 @@
 	let player;
 	let volume = 50;
 	let paused = true;
+
 	const handleClick = () => {
 		if (paused) {
 			player.play();
 			// randomly pick the user here
 		}
+		$: player.volume = volume / 100;
 	};
-	function setVolume() {}
+	function setVolume() {
+		player.volume = volume / 100;
+	}
 </script>
 
 <div class="roll-container">
 	<button on:click={handleClick}>ROLL</button>
 	<div class="volume-container">
 		<span>Drum Roll Volume: {volume}%</span>
-		<input type="range" min="0" max="100" bind:value={volume} />
+		<input type="range" min="0" max="100" bind:value={volume} on:change={setVolume} />
 	</div>
-	<audio src="drumroll.mp3" volume={volume / 100} bind:paused bind:this={player} />
+	<audio src="drumroll.mp3" bind:paused bind:this={player} />
 </div>
 
 <style>
