@@ -1,6 +1,5 @@
 <script>
 	import { spring } from 'svelte/motion';
-
 	export let count;
 	export let label;
 
@@ -9,8 +8,7 @@
 	$: offset = modulo($displayed_count, 1);
 
 	function modulo(n, m) {
-		// handle negative numbers
-		return ((n % m) + m) % m;
+		return n % m;
 	}
 
 	function decrement(num) {
@@ -33,8 +31,8 @@
 
 		<div class="counter-viewport">
 			<div class="counter-digits" style="transform: translate(0, {100 * offset}%)">
-				<strong style="top: -100%" aria-hidden="true">{Math.floor($displayed_count + 1)}</strong>
-				<strong>{Math.floor($displayed_count)}</strong>
+				<input style="top: -100%" aria-hidden="true" value={Math.floor($displayed_count + 1)} />
+				<input type="number" bind:value={$count} />
 			</div>
 		</div>
 
@@ -96,7 +94,14 @@
 		position: relative;
 	}
 
-	.counter-viewport strong {
+	.counter-digits {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+	}
+
+	.counter-viewport strong,
+	input {
 		position: absolute;
 		display: flex;
 		width: 100%;
@@ -108,9 +113,21 @@
 		justify-content: center;
 	}
 
-	.counter-digits {
-		position: absolute;
-		width: 100%;
-		height: 100%;
+	input {
+		background-color: transparent;
+		border: none;
+		text-align: center;
+	}
+
+	/* Removes number arrows Chrome, Safari, Edge, Opera */
+	input::-webkit-outer-spin-button,
+	input::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+
+	/* Firefox */
+	input[type='number'] {
+		-moz-appearance: textfield;
 	}
 </style>

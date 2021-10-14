@@ -1,5 +1,4 @@
 <script>
-	import { spring } from 'svelte/motion';
 	export let num;
 	export let name;
 </script>

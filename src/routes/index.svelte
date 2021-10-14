@@ -4,7 +4,7 @@
 
 <script>
 	import { min, max } from '../stores/modstore';
-	import Counter from '$lib/Counter.svelte';
+	import Counter from '$lib/counter/Counter.svelte';
 	import RollButton from '$lib/RollButton.svelte';
 	import ModContainer from '$lib/modbox/ModContainer.svelte';
 </script>
@@ -37,7 +37,7 @@
 	section {
 		display: flex;
 		flex-direction: column;
-		justify-content: center;
+		/* justify-content: center; */
 		align-items: center;
 		flex: 1;
 	}
