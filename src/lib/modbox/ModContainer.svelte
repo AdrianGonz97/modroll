@@ -1,5 +1,5 @@
 <script>
-	import { users, count, min, max } from '../../stores/modstore';
+	import { boxes, count, min, max } from '../../stores/modstore';
 	import ModBox from './ModBox.svelte';
 
 	let styled = '';
@@ -15,8 +15,8 @@
 <span>Count: {$count}</span>
 <span>Min: {$min} - Max: {$max}</span>
 <div style={styled}>
-	{#each $users as user (user.num)}
-		<ModBox {...user} />
+	{#each $boxes as box, index (box.num)}
+		<ModBox {...box} index />
 	{/each}
 </div>
 
@@ -24,9 +24,10 @@
 	div {
 		display: grid;
 		grid-gap: 1rem;
+		margin-top: 1rem;
 	}
 
-	@media screen and (min-width: 650px) {
+	@media (min-width: 650px) {
 		div {
 			display: grid;
 			/* grid-template-columns: repeat(3, 1fr); */
@@ -35,7 +36,7 @@
 			grid-gap: 1rem;
 		}
 	}
-	@media screen and (min-width: 1100px) {
+	@media (min-width: 1100px) {
 		div {
 			display: grid;
 			grid-template-rows: repeat(var(--rows-lg), 1fr);
