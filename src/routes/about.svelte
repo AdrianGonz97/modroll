@@ -33,6 +33,11 @@
 	</p>
 
 	<p>Still under constructing. Not mobile friendly yet. I'm not a web designer so it's ugly. :)</p>
+
+	<p>
+		Inspired by
+		<a href="https://github.com/TheFinie/frostprimemodroll">TheFinie's</a> original modroll app.
+	</p>
 </div>
 
 <style>

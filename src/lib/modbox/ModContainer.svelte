@@ -10,8 +10,6 @@
 		const rowsMd = Math.ceil($count / 3);
 		styled = `--rows-lg: ${rowsLg}; --rows-md: ${rowsMd};`;
 	}
-
-	// $: modCount = $pastMods.length;
 </script>
 
 <!-- Temp for debugging -->
