@@ -15,8 +15,8 @@
 <span>Count: {$count}</span>
 <span>Min: {$min} - Max: {$max}</span>
 <div style={styled}>
-	{#each $boxes as box, index (box.num)}
-		<ModBox {...box} index />
+	{#each $boxes as box (box.num)}
+		<ModBox {...box} />
 	{/each}
 </div>
 
