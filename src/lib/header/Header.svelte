@@ -6,7 +6,7 @@
 <header>
 	<div class="corner">
 		<a href="https://github.com/AdrianGonz97/modroll-web-app">
-			<img src={logo} alt="SvelteKit" />
+			<img src={logo} alt="GitHub" />
 		</a>
 	</div>
 
