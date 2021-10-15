@@ -24,7 +24,7 @@
 		Mod Rolly
 	</h1>
 
-	<h2>Edit the numbers below to adjust</h2>
+	<h2>Edit the numbers below to adjust the quantity</h2>
 	<div class="counters">
 		<Counter count={min} label="Min Number" />
 		<Counter count={max} label="Max Number" />
