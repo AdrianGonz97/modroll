@@ -27,14 +27,17 @@
 			// highlight user name here
 			const winnerName = $users.get(num);
 			if (winnerName) {
-				pastMods.set([winnerName, $pastMods[0]]);
+				if ($currentMod != winnerName) {
+					// if the winner isn't the current mod, put current mod in past
+					pastMods.set([$currentMod, $pastMods[0]]);
+				}
 				winner.set({ name: winnerName, num });
 				currentMod.set(winnerName);
 			} else {
 				winner.set({ name: 'None', num });
 			}
 			console.log('Winner: ', winnerName);
-		}, 3000);
+		}, 3200);
 	}
 </script>
 
