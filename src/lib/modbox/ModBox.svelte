@@ -37,7 +37,7 @@
 
 <div class={$winner.num === num ? 'winner' : 'name-container'}>
 	<span>{num}</span>
-	<input aria-label="Username" placeholder="Empty" bind:value={name} on:keydown={handleDelete} />
+	<input aria-label="Username" placeholder={''} bind:value={name} on:keydown={handleDelete} />
 </div>
 
 <style>

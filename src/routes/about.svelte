@@ -33,7 +33,7 @@
 		>.
 	</p>
 
-	<p>Still under constructing. Not made for mobile yet. I'm not a web designer so it's ugly. :)</p>
+	<p>Still under constructing. Not mobile friendly yet. I'm not a web designer so it's ugly. :)</p>
 </div>
 
 <style>
