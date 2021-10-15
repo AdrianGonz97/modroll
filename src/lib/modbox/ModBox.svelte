@@ -1,6 +1,6 @@
 <script>
-	import { afterUpdate, beforeUpdate, onDestroy } from 'svelte';
-	import { users } from '../../stores/modstore';
+	import { afterUpdate, onDestroy } from 'svelte';
+	import { users, winner } from '../../stores/modstore';
 	export let num;
 	export let name;
 
@@ -35,17 +35,22 @@
 	});
 </script>
 
-<div class="name-container">
+<div class={$winner.num === num ? 'winner' : 'name-container'}>
 	<span>{num}</span>
 	<input aria-label="Username" placeholder="Empty" bind:value={name} on:keydown={handleDelete} />
 </div>
 
 <style>
-	.name-container {
+	.name-container,
+	.winner {
 		display: grid;
 		grid-template-columns: 1fr 5fr;
 		grid-auto-rows: 2rem;
 		grid-gap: 0.2rem;
+		padding: 0.2rem;
+	}
+	.winner {
+		background-color: #03ac13;
 	}
 	input {
 		width: 10rem;

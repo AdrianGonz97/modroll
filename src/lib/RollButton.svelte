@@ -1,5 +1,5 @@
 <script>
-	import { min, max, users, winner, pastMods } from '../stores/modstore';
+	import { min, max, users, winner, pastMods, currentMod } from '../stores/modstore';
 	let player;
 	let volume = 50;
 	let paused = true;
@@ -27,8 +27,11 @@
 			// highlight user name here
 			const winnerName = $users.get(num);
 			if (winnerName) {
-				winner.set(winnerName);
 				pastMods.set([winnerName, $pastMods[0]]);
+				winner.set({ name: winnerName, num });
+				currentMod.set(winnerName);
+			} else {
+				winner.set({ name: 'None', num });
 			}
 			console.log('Winner: ', winnerName);
 		}, 3000);
