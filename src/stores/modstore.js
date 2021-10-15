@@ -2,6 +2,15 @@ import { writable, derived } from 'svelte/store';
 
 export const users = writable(new Map());
 
+export let winner = writable('None');
+export let currentMod = derived(winner, ($winner) => {
+	if ($winner !== 'None') {
+		return $winner;
+	}
+	return 'None';
+});
+export let pastMods = writable(['None', 'None']);
+
 export let min = writable(1);
 export let max = writable(50);
 export let count = derived(

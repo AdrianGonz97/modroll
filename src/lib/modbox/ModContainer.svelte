@@ -1,5 +1,6 @@
 <script>
 	import { boxes, count, min, max } from '../../stores/modstore';
+	import { currentMod, pastMods } from '../../stores/modstore';
 	import ModBox from './ModBox.svelte';
 
 	let styled = '';
@@ -9,11 +10,15 @@
 		const rowsMd = Math.ceil($count / 3);
 		styled = `--rows-lg: ${rowsLg}; --rows-md: ${rowsMd};`;
 	}
+
+	// $: modCount = $pastMods.length;
 </script>
 
 <!-- Temp for debugging -->
-<span>Count: {$count}</span>
-<span>Min: {$min} - Max: {$max}</span>
+<!-- <span>Count: {$count}</span> -->
+<!-- <span>Min: {$min} - Max: {$max}</span> -->
+<span>Current Mod: {$currentMod}</span>
+<span>Past Winners: {$pastMods[0]}, {$pastMods[1]}</span>
 <div style={styled}>
 	{#each $boxes as box (box.num)}
 		<ModBox {...box} />

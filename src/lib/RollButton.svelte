@@ -1,14 +1,16 @@
 <script>
-	import { min, max } from '../stores/modstore';
+	import { min, max, users, winner, pastMods } from '../stores/modstore';
 	let player;
 	let volume = 50;
 	let paused = true;
+	let rollNumber = 0;
 
 	function handleClick() {
 		if (paused) {
 			setVolume();
 			player.play();
 			rollMod();
+			rollNumber++;
 		}
 	}
 
@@ -23,12 +25,18 @@
 			console.log(num);
 
 			// highlight user name here
+			const winnerName = $users.get(num);
+			if (winnerName) {
+				winner.set(winnerName);
+				pastMods.set([winnerName, $pastMods[0]]);
+			}
+			console.log('Winner: ', winnerName);
 		}, 3000);
 	}
 </script>
 
 <div class="roll-container">
-	<button on:click={handleClick}>ROLL</button>
+	<button on:click={handleClick}>ROLL MOD<br />Roll #{rollNumber}</button>
 	<div class="volume-container">
 		<span>Drum Roll Volume: {volume}%</span>
 		<input type="range" min="0" max="100" bind:value={volume} on:change={setVolume} />
@@ -38,7 +46,7 @@
 
 <style>
 	button {
-		padding: 1rem;
+		padding: 0.8rem;
 	}
 	input {
 		margin: 1rem;
