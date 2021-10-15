@@ -3,15 +3,22 @@
 	let volume = 50;
 	let paused = true;
 
-	const handleClick = () => {
+	function handleClick() {
 		if (paused) {
 			setVolume();
 			player.play();
-			// randomly pick the user here
+			rollMod();
 		}
-	};
+	}
+
 	function setVolume() {
 		player.volume = volume / 100;
+	}
+
+	function rollMod() {
+		setTimeout(() => {
+			// randomly pick the user here
+		}, 3000);
 	}
 </script>
 
