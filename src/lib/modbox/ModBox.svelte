@@ -3,35 +3,34 @@
 	import { users } from '../../stores/modstore';
 	export let num;
 	export let name;
-	let hasName;
 
 	$: if (name) {
 		$users.set(num, name);
-		console.log('name changed:', num);
+		// console.log('name changed:', num);
 	}
 
 	// hacky way to get around the inability to delete the last character
 	function handleDelete(e) {
-		// this is so bad , I need to redo this whole thing
-		if ((e.key === 'Delete' || e.key === 'Backspace') && name.length === 1) {
+		if (e.key === 'Delete' || e.key === 'Backspace') {
 			$users.set(num, '');
 		}
 	}
 
 	afterUpdate(() => {
-		console.log('after: ', name, num);
 		const savedName = $users.get(num);
 		if (savedName) {
 			name = savedName;
-			console.log('saved name: ', savedName);
+			// console.log('saved name: ', savedName);
 		} else {
 			$users.set(num, '');
-			console.log('initializing: ', num);
+			// console.log('initializing: ', num);
 		}
 	});
 
 	onDestroy(() => {
-		//$users.delete(num); // uncomment if I want to delete from map and save memory
+		// uncomment if I want to delete from map and save memory,
+		// but doesn't maintain the name when the modbox is destroyed
+		//$users.delete(num);
 		console.log('destroyed:', num);
 	});
 </script>
