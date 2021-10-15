@@ -1,17 +1,16 @@
 <script>
-	import { min, max, users, winner, pastMods, currentMod } from '../stores/modstore';
+	import { min, max, users, winner, pastMods, currentMod, rollCount } from '../stores/modstore';
 	let player;
 	let pressed = false;
 	let volume = 50;
 	let paused = true;
-	let rollNumber = 0;
 
 	function handleClick() {
 		if (paused) {
 			setVolume();
 			player.play();
 			rollMod();
-			rollNumber++;
+			$rollCount++;
 			winner.set({ name: 'None', num: 0 });
 		}
 	}
@@ -44,7 +43,8 @@
 </script>
 
 <div class="roll-container">
-	<button on:click={handleClick} disabled={!paused}>ROLL MOD<br />Roll #{rollNumber}</button>
+	<button on:click={handleClick} disabled={!paused}>CLICK ME TO ROLL<br />Roll #{$rollCount}</button
+	>
 	<div class="volume-container">
 		<span>Drum Roll Volume: {volume}%</span>
 		<input type="range" min="0" max="100" bind:value={volume} on:change={setVolume} />

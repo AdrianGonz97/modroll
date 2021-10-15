@@ -6,6 +6,8 @@ export let winner = writable({ name: 'None', num: 0 });
 export let currentMod = writable('None');
 export let pastMods = writable(['None', 'None']);
 
+export let rollCount = writable(0);
+
 export let min = writable(1);
 export let max = writable(50);
 export let count = derived(

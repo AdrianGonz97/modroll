@@ -21,7 +21,7 @@
 				<img src="svelte-welcome.png" alt="Welcome" />
 			</picture>
 		</div> -->
-		Mod Rolly
+		Rolly for Le Mod
 	</h1>
 
 	<h2>Edit the numbers below to adjust the quantity</h2>
