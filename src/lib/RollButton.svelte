@@ -1,4 +1,5 @@
 <script>
+	import { min, max } from '../stores/modstore';
 	let player;
 	let volume = 50;
 	let paused = true;
@@ -17,7 +18,11 @@
 
 	function rollMod() {
 		setTimeout(() => {
-			// randomly pick the user here
+			// rolls in range of [min, max]
+			const num = Math.floor(Math.random() * ($max - $min + 1) + $min);
+			console.log(num);
+
+			// highlight user name here
 		}, 3000);
 	}
 </script>
