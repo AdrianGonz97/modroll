@@ -5,7 +5,7 @@
 
 <header>
 	<div class="corner">
-		<a href="https://github.com/AdrianGonz97/modroll-web-app">
+		<a href="https://github.com/AdrianGonz97/modroll">
 			<img src={logo} alt="GitHub" />
 		</a>
 	</div>

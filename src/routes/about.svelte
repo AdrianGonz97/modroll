@@ -27,8 +27,7 @@
 	</p>
 
 	<p>
-		If you want to check out the code itself, <a
-			href="https://github.com/AdrianGonz97/modroll-web-app"
+		If you want to check out the code itself, <a href="https://github.com/AdrianGonz97/modroll"
 			>here's a link to the github repository</a
 		>.
 	</p>
