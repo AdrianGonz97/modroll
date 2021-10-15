@@ -100,7 +100,6 @@
 		height: 100%;
 	}
 
-	.counter-viewport strong,
 	input {
 		position: absolute;
 		display: flex;
