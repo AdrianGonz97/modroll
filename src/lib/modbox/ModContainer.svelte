@@ -17,8 +17,10 @@
 <!-- Temp for debugging -->
 <!-- <span>Count: {$count}</span> -->
 <!-- <span>Min: {$min} - Max: {$max}</span> -->
-<span>Current Mod: {$currentMod}</span>
-<span>Past Winners: {$pastMods[0]}, {$pastMods[1]}</span>
+<div class="stats">
+	<span>Current Mod: <strong>{$currentMod}</strong></span>
+	<span>Past Winners: <strong>{$pastMods[0]}</strong>, <strong>{$pastMods[1]}</strong></span>
+</div>
 <div style={styled}>
 	{#each $boxes as box (box.num)}
 		<ModBox {...box} />
@@ -30,6 +32,16 @@
 		display: grid;
 		grid-gap: 1rem;
 		margin-top: 1rem;
+	}
+
+	span {
+		font-size: 1.25rem;
+		text-align: center;
+	}
+
+	.stats {
+		display: flex;
+		flex-direction: column;
 	}
 
 	@media (min-width: 650px) {

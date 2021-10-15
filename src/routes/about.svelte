@@ -23,7 +23,7 @@
 
 	<p>
 		This is a quickly made <a href="https://kit.svelte.dev">SvelteKit</a> app that uses much of the styling
-		from the default template. Svelte is great, highly recommend.
+		from the default template. Svelte is great, I highly recommend it.
 	</p>
 
 	<p>
@@ -32,6 +32,8 @@
 			>here's a link to the github repository</a
 		>.
 	</p>
+
+	<p>Still under constructing. Not made for mobile yet. I'm not a web designer so it's ugly. :)</p>
 </div>
 
 <style>

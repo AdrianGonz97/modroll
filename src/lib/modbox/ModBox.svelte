@@ -27,12 +27,12 @@
 		}
 	});
 
-	onDestroy(() => {
-		// uncomment if I want to delete from map and save memory,
-		// but doesn't maintain the name when the modbox is destroyed
-		//$users.delete(num);
-		console.log('destroyed:', num);
-	});
+	// uncomment if I want to delete from map and save memory,
+	// but doesn't maintain the name when the modbox is destroyed
+	// onDestroy(() => {
+	// 	$users.delete(num);
+	// 	console.log('destroyed:', num);
+	// });
 </script>
 
 <div class={$winner.num === num ? 'winner' : 'name-container'}>
