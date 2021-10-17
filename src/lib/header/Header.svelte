@@ -1,13 +1,11 @@
 <script>
 	import { page } from '$app/stores';
-	import githubLogo from '/github.svg';
-	import twitterLogo from '/twitter.svg';
 </script>
 
 <header>
 	<div class="corner">
 		<a href="https://github.com/AdrianGonz97/modroll">
-			<img src={githubLogo} alt="GitHub" />
+			<img src="/github.svg" alt="GitHub" />
 		</a>
 	</div>
 
@@ -26,7 +24,7 @@
 
 	<div class="corner">
 		<a href="https://twitter.com/cokakoala_">
-			<img class="twitter" src={twitterLogo} alt="Twitter" />
+			<img class="twitter" src="/twitter.svg" alt="Twitter" />
 		</a>
 	</div>
 </header>
