@@ -53,7 +53,8 @@
 
 <style>
 	button {
-		padding: 0.8rem;
+		padding: 1rem;
+		/* box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1); */
 	}
 	input {
 		margin: 1rem;
