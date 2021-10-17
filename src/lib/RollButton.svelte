@@ -44,7 +44,7 @@
 <div class="roll-container">
 	<button on:click={handleClick} disabled={!paused}>CLICK ME TO ROLL</button>
 	<div class="volume-container">
-		<span>Drum Roll Volume: {volume}%</span>
+		<span>Drum Volume: {volume}%</span>
 		<input type="range" min="0" max="100" bind:value={volume} on:change={setVolume} />
 	</div>
 	<audio src="drumroll.mp3" bind:paused bind:this={player} />
@@ -61,12 +61,18 @@
 	.roll-container {
 		display: flex;
 		flex-direction: column;
-		width: 26rem;
+		text-align: center;
 	}
 	.volume-container {
 		display: flex;
 		flex-direction: row;
 		align-items: center;
 		justify-content: center;
+	}
+
+	@media (min-width: 440px) {
+		.roll-container {
+			width: 26rem;
+		}
 	}
 </style>
