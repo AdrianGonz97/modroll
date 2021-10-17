@@ -1,5 +1,5 @@
 <script>
-	import { boxes, count, min, max } from '../../stores/modstore';
+	import { boxes, count, rollCount } from '../../stores/modstore';
 	import { currentMod, pastMods } from '../../stores/modstore';
 	import ModBox from './ModBox.svelte';
 
@@ -12,24 +12,42 @@
 	}
 </script>
 
-<!-- Temp for debugging -->
-<!-- <span>Count: {$count}</span> -->
-<!-- <span>Min: {$min} - Max: {$max}</span> -->
-<div class="stats">
-	<span>Current Mod: <strong>{$currentMod}</strong></span>
-	<span>Past Winners: <strong>{$pastMods[0]}</strong>, <strong>{$pastMods[1]}</strong></span>
-</div>
-<div style={styled}>
-	{#each $boxes as box (box.num)}
-		<ModBox {...box} />
-	{/each}
+<div class="container">
+	<div class="stats">
+		<span>Roll #{$rollCount}</span>
+		<span>Current Mod: <strong>{$currentMod}</strong></span>
+		<span>
+			Past Winners: [
+			{#each $pastMods as modName}
+				<strong>{modName}</strong>&nbsp;
+			{/each}
+			]
+		</span>
+	</div>
+	<div style={styled}>
+		{#each $boxes as box (box.num)}
+			<ModBox {...box} />
+		{/each}
+	</div>
 </div>
 
 <style>
 	div {
 		display: grid;
 		grid-gap: 1rem;
-		margin-top: 1rem;
+	}
+
+	.container {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		border-style: solid;
+		border-width: 1px;
+		border-radius: 20px;
+		padding: 1.5rem;
+		box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+		background-color: var(--tertiary-color);
 	}
 
 	span {
@@ -40,9 +58,10 @@
 	.stats {
 		display: flex;
 		flex-direction: column;
+		margin-bottom: 1rem;
 	}
 
-	@media (min-width: 650px) {
+	@media (min-width: 710px) {
 		div {
 			display: grid;
 			/* grid-template-columns: repeat(3, 1fr); */
@@ -51,7 +70,7 @@
 			grid-gap: 1rem;
 		}
 	}
-	@media (min-width: 1100px) {
+	@media (min-width: 1150px) {
 		div {
 			display: grid;
 			grid-template-rows: repeat(var(--rows-lg), 1fr);
