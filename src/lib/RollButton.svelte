@@ -1,7 +1,6 @@
 <script>
 	import { min, max, users, winner, pastMods, currentMod, rollCount } from '../stores/modstore';
 	let player;
-	let pressed = false;
 	let volume = 50;
 	let paused = true;
 
