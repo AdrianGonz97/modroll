@@ -17,9 +17,8 @@
 		<span>Roll #{$rollCount}</span>
 		<span>Current Mod: <strong>{$currentMod}</strong></span>
 		<span>
-			Past Winners: [
-			{#each $pastMods as modName}
-				<strong>{modName}</strong>&nbsp;
+			Past Winners: [{#each $pastMods as modName}
+				&nbsp;<strong>{modName}</strong>
 			{/each}
 			]
 		</span>
