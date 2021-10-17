@@ -50,6 +50,7 @@
 		padding: 0.2rem;
 	}
 	.winner {
+		color: white;
 		background-color: #03ac13;
 	}
 	input {
