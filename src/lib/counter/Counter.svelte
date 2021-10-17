@@ -68,7 +68,7 @@
 		border: 0;
 		background-color: transparent;
 		color: var(--text-color);
-		font-size: 2rem;
+		font-size: 1rem;
 	}
 
 	.counter button:hover {
@@ -107,7 +107,7 @@
 		height: 100%;
 		font-weight: 400;
 		color: var(--accent-color);
-		font-size: 3rem;
+		font-size: 2.5rem;
 		align-items: center;
 		justify-content: center;
 	}
@@ -128,5 +128,14 @@
 	/* Firefox */
 	input[type='number'] {
 		-moz-appearance: textfield;
+	}
+
+	@media (min-width: 475px) {
+		input {
+			font-size: 3rem;
+		}
+		.counter button {
+			font-size: 2rem;
+		}
 	}
 </style>
