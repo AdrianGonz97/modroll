@@ -42,8 +42,7 @@
 </script>
 
 <div class="roll-container">
-	<button on:click={handleClick} disabled={!paused}>CLICK ME TO ROLL<br />Roll #{$rollCount}</button
-	>
+	<button on:click={handleClick} disabled={!paused}>CLICK ME TO ROLL</button>
 	<div class="volume-container">
 		<span>Drum Roll Volume: {volume}%</span>
 		<input type="range" min="0" max="100" bind:value={volume} on:change={setVolume} />
