@@ -1,12 +1,13 @@
 <script>
 	import { page } from '$app/stores';
-	import logo from './github.svg';
+	import githubLogo from '/github.svg';
+	import twitterLogo from '/twitter.svg';
 </script>
 
 <header>
 	<div class="corner">
 		<a href="https://github.com/AdrianGonz97/modroll">
-			<img src={logo} alt="GitHub" />
+			<img src={githubLogo} alt="GitHub" />
 		</a>
 	</div>
 
@@ -24,7 +25,9 @@
 	</nav>
 
 	<div class="corner">
-		<!-- TODO put something else here? github link? -->
+		<a href="https://twitter.com/cokakoala_">
+			<img class="twitter" src={twitterLogo} alt="Twitter" />
+		</a>
 	</div>
 </header>
 
@@ -63,6 +66,10 @@
 		width: 2em;
 		height: 3em;
 		display: block;
+	}
+
+	.twitter {
+		filter: invert(43%) sepia(94%) saturate(1159%) hue-rotate(179deg) brightness(90%) contrast(92%);
 	}
 
 	path {
