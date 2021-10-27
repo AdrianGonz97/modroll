@@ -6,7 +6,9 @@
 
 	onMount(async () => {
 		const code = $page.query.get('code');
+		const state = $page.query.get('state');
 		console.log(code);
+		console.log(state);
 
 		const resp = await fetch('/api/auth', {
 			method: 'POST',

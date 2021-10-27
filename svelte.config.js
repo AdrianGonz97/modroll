@@ -12,14 +12,14 @@ const config = {
 		target: '#svelte',
 		appDir: 'app',
 		paths: {
-			base: '' //process.env.NODE_ENV === 'production' ? '/modroll' : ''
+			base: '', //process.env.NODE_ENV === 'production' ? '/modroll' : ''
 		},
 		adapter: adapter({
 			pages: 'build',
 			assets: 'build',
-			fallback: null
-		})
-	}
+			fallback: null,
+		}),
+	},
 };
 
 export default config;
