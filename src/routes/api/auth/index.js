@@ -1,3 +1,5 @@
+import cookie from 'cookie';
+import { getSignedToken } from '../../../util/jwt';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -20,9 +22,19 @@ export async function post({ body }) {
 
 		const data = await resp.json();
 
+		const jwtToken = getSignedToken(data);
+
+		const jwtCookie = cookie.serialize('jwt', jwtToken, {
+			path: '/',
+			httpOnly: true,
+		});
+
 		return {
 			status: 200,
-			body: data,
+			headers: {
+				'set-cookie': jwtCookie,
+			},
+			body: { message: 'authorization success' },
 		};
 	} catch (err) {
 		return { status: 404, body: err.message };

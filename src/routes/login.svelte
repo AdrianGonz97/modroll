@@ -2,6 +2,8 @@
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
 
+	let isLoading = true;
+
 	onMount(async () => {
 		const code = $page.query.get('code');
 		console.log(code);
@@ -16,14 +18,20 @@
 
 		if (resp.ok) {
 			console.log(data);
-			// cookie and redirect
+			isLoading = false;
+			// redirect
 		} else {
 			throw new Error(data);
+			// redirect back
 		}
 	});
 </script>
 
-<h2>Processing...</h2>
+{#if isLoading}
+	<h2>Processing...</h2>
+{:else}
+	<h2>Done!</h2>
+{/if}
 
 <style>
 	h2 {
