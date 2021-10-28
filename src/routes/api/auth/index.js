@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 export async function post({ body }) {
-	console.log('Getting access token!');
+	console.log('Getting access token');
 	const code = JSON.parse(body).code;
 	const URL =
 		'https://id.twitch.tv/oauth2/token' +

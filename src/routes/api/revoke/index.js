@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 export async function post(request) {
-	console.log('Revoking access token!');
+	console.log('Revoking access token');
 	const jwt = request.locals.jwt;
 	const accessToken = getAccessToken(jwt);
 	const URL = 'https://id.twitch.tv/oauth2/revoke';
