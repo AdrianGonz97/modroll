@@ -4,6 +4,7 @@ import { v4 as uuid } from '@lukeed/uuid';
 export const handle = async ({ request, resolve }) => {
 	const cookies = cookie.parse(request.headers.cookie || '');
 	request.locals.userid = cookies.userid || uuid();
+	request.locals.jwt = cookies.jwt || '';
 
 	// TODO https://github.com/sveltejs/kit/issues/1046
 	if (request.query.has('_method')) {
@@ -27,3 +28,9 @@ export const handle = async ({ request, resolve }) => {
 
 	return response;
 };
+
+export function getSession(request) {
+	return {
+		jwt: request.locals.jwt ?? '',
+	};
+}
