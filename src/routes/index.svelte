@@ -7,6 +7,7 @@
 	import Counter from '$lib/counter/Counter.svelte';
 	import RollButton from '$lib/RollButton.svelte';
 	import ModContainer from '$lib/modbox/ModContainer.svelte';
+	// chat box for calling chat dumb when they pick already taken number "what an idiot!"
 </script>
 
 <svelte:head>

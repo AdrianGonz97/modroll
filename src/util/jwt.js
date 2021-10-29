@@ -14,7 +14,7 @@ export function getAccessToken(token) {
 		const accessToken = data.access_token;
 		return accessToken;
 	} catch (err) {
-		console.error(err);
-		return;
+		console.log('JWT is expired!');
+		return '';
 	}
 }
