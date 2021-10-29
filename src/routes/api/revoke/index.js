@@ -9,9 +9,21 @@ export async function post(request) {
 	const accessToken = getAccessToken(jwt);
 	const URL = 'https://id.twitch.tv/oauth2/revoke';
 
+	// reset jwt cookie to empty
+	const jwtCookie = cookie.serialize('jwt', '', {
+		path: '/',
+		httpOnly: true,
+	});
+
 	// user must have cookie to continue
 	if (!jwt || !accessToken) {
-		return { status: 401 };
+		return {
+			status: 401,
+			body: { message: 'JWT already expired' },
+			headers: {
+				'set-cookie': jwtCookie,
+			},
+		};
 	}
 
 	try {
@@ -31,12 +43,6 @@ export async function post(request) {
 			body.message =
 				'Bad request, token may have already been revoked or expired';
 		}
-
-		// reset jwt cookie to empty
-		const jwtCookie = cookie.serialize('jwt', '', {
-			path: '/',
-			httpOnly: true,
-		});
 
 		return {
 			status,
