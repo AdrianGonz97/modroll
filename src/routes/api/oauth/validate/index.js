@@ -1,8 +1,11 @@
+import cookie from 'cookie';
 import { oauth } from '../_oauth';
+import { getAccessToken } from '../../../../util/jwt';
 
-export async function post({ body }) {
+export async function post(request) {
 	console.log('Validating access token');
-	const accessToken = JSON.parse(body).access_token;
+	const jwt = request.locals.jwt;
+	const accessToken = getAccessToken(jwt);
 
 	if (!accessToken) {
 		return { status: 401, message: 'No access token provided' };
@@ -13,13 +16,22 @@ export async function post({ body }) {
 	try {
 		const resp = await oauth('validate', headers, null, null);
 
-		const data = await resp.json();
+		const jwtCookie = cookie.serialize('jwt', '', {
+			path: '/',
+			httpOnly: true,
+		});
 
 		// if token is validated
 		if (resp.ok) {
-			return { status: 200, message: 'Access token is valid', data };
+			return { status: 200, body: { message: 'Access token is valid' } };
 		} else {
-			return { status: resp.status, message: 'Invalid access token' };
+			return {
+				status: resp.status,
+				headers: {
+					'set-cookie': jwtCookie,
+				},
+				body: { message: 'Invalid access token' },
+			};
 		}
 	} catch (err) {
 		return { status: 404, body: err.message };
