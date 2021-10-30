@@ -1,4 +1,5 @@
 import cookie from 'cookie';
+import { oauth } from '../../../util/twitch/oauth';
 import { getAccessToken } from '../../../util/jwt';
 import dotenv from 'dotenv';
 dotenv.config();
@@ -7,7 +8,9 @@ export async function post(request) {
 	console.log('Revoking access token');
 	const jwt = request.locals.jwt;
 	const accessToken = getAccessToken(jwt);
-	const URL = 'https://id.twitch.tv/oauth2/revoke';
+
+	const headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
+	const body = `client_id=${process.env['VITE_CLIENT_ID']}&token=${accessToken}`;
 
 	// reset jwt cookie to empty
 	const jwtCookie = cookie.serialize('jwt', '', {
@@ -27,26 +30,22 @@ export async function post(request) {
 	}
 
 	try {
-		const resp = await fetch(URL, {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-			body: `client_id=${process.env['VITE_CLIENT_ID']}&token=${accessToken}`,
-		});
+		const resp = await oauth('revoke', headers, body, null);
 
-		const body = {};
+		const resBody = {};
 		let status = 200;
 
 		if (resp.ok) {
-			body.message = 'token revoked successfully';
+			resBody.message = 'token revoked successfully';
 		} else {
 			status = 400;
-			body.message =
+			resBody.message =
 				'Bad request, token may have already been revoked or expired';
 		}
 
 		return {
 			status,
-			body,
+			body: resBody,
 			headers: {
 				'set-cookie': jwtCookie,
 			},
