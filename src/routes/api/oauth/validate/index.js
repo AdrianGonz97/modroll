@@ -1,7 +1,7 @@
 import cookie from 'cookie';
 import { getAccessToken } from '../../../../util/jwt';
 
-export async function get(request) {
+export async function post(request) {
 	console.log('Validating access token');
 	const jwt = request.locals.jwt;
 	const accessToken = getAccessToken(jwt);
@@ -17,19 +17,38 @@ export async function get(request) {
 			headers,
 		});
 
-		const jwtCookie = cookie.serialize('jwt', '', {
-			path: '/',
-			httpOnly: true,
-		});
-
 		// if token is validated
 		if (resp.ok) {
-			return { status: 200, body: { message: 'Access token is valid' } };
+			const expiresIn = Date.now() + 60 * 60 * 1000;
+			const validityCookie = cookie.serialize(
+				'validUntil',
+				expiresIn.toString(),
+				{
+					path: '/',
+					httpOnly: true,
+				}
+			);
+
+			return {
+				status: 200,
+				headers: {
+					'set-cookie': validityCookie,
+				},
+				body: { message: 'Access token is valid' },
+			};
 		} else {
+			const validityCookie = cookie.serialize('validUntil', '0', {
+				path: '/',
+				httpOnly: true,
+			});
+			const jwtCookie = cookie.serialize('jwt', '', {
+				path: '/',
+				httpOnly: true,
+			});
 			return {
 				status: resp.status,
 				headers: {
-					'set-cookie': jwtCookie,
+					'set-cookie': [jwtCookie, validityCookie],
 				},
 				body: { message: 'Invalid access token' },
 			};

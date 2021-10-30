@@ -1,13 +1,23 @@
 <script context="module">
 	// check if jwt exists and validate token
 	export async function load({ fetch, session }) {
-		const { jwt } = session;
+		const { jwt, validUntil } = session;
+		const isValid = Date.now() < validUntil;
+
+		if (jwt && isValid) {
+			// used to not revalidate access token on every single page load
+			console.log('Skipping revalidation');
+			return {
+				props: { isConnected: true },
+			};
+		}
+
 		if (jwt) {
-			const resp = await fetch('/api/oauth/validate');
+			const resp = await fetch('/api/oauth/validate', { method: 'POST' });
 			if (resp.ok) {
 				console.log('Valid access token');
 				return {
-					props: { isConnected: true },
+					props: { isConnected: true, updatedValidity: true },
 				};
 			}
 		}
@@ -26,6 +36,7 @@
 	import { user } from '../../stores/userstore';
 
 	export let isConnected;
+	export let updatedValidity = false;
 	let url;
 
 	onMount(() => {
@@ -40,6 +51,9 @@
 			`&scope=bits:read+channel:manage:redemptions+channel:read:redemptions+user:read:email` +
 			`&force_verify=true` +
 			`&state=${state}`;
+
+		// hack to reload once validity state is initially
+		if (updatedValidity) window.location.reload();
 	});
 
 	async function logout() {

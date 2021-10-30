@@ -17,6 +17,10 @@ export async function post(request) {
 		path: '/',
 		httpOnly: true,
 	});
+	const validityCookie = cookie.serialize('validUntil', '0', {
+		path: '/',
+		httpOnly: true,
+	});
 
 	// user must have cookie to continue
 	if (!jwt || !accessToken) {
@@ -47,7 +51,7 @@ export async function post(request) {
 			status,
 			body: resBody,
 			headers: {
-				'set-cookie': jwtCookie,
+				'set-cookie': [jwtCookie, validityCookie],
 			},
 		};
 	} catch (err) {
