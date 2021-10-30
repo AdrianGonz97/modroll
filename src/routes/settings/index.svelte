@@ -23,10 +23,10 @@
 	import SettingsForm from '$lib/settings/SettingsForm.svelte';
 	import { generateState } from './state';
 	import { onMount } from 'svelte';
+	import { user } from '../../stores/userstore';
 
 	export let isConnected;
 	let url;
-	let username = 'Twitch Username here';
 
 	onMount(() => {
 		const baseUrl = window.location.host;
@@ -51,7 +51,11 @@
 </script>
 
 {#if isConnected}
-	<span class="connection">Connected as: {username}</span>
+	{#if $user.displayName}
+		<span class="connection">Connected as: <b>{$user.displayName}</b></span>
+	{:else}
+		<span class="connection">Connected as: ...</span>
+	{/if}
 	<button on:click={logout}>Disconnect from Twitch</button>
 {:else}
 	<a class="connection" href={url}>Connect to Twitch</a>
@@ -69,5 +73,8 @@
 		box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
 		text-decoration: none;
 		transition: all 0.1s ease;
+	}
+	b {
+		font-size: 1.1rem;
 	}
 </style>

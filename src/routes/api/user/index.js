@@ -1,7 +1,5 @@
 import { getAccessToken } from '../../../util/jwt';
 import { get as twitchGet } from '../../../util/twitch/api';
-// import dotenv from 'dotenv';
-// dotenv.config();
 
 export async function get(request) {
 	console.log('Getting user info');

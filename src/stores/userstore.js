@@ -1,6 +1,10 @@
-import { writable, derived } from 'svelte/store';
+import { writable } from 'svelte/store';
+import { browser } from '$app/env';
 
-export let user = writable({});
-export let username = derived(user, ($user) => $user.displayName);
-export let userId = derived(user, ($user) => $user.userId);
-export let profileUrl = derived(user, ($user) => $user.profileUrl);
+// export const user = writable(JSON.parse(localStorage.getItem('user')));
+export const user = writable({});
+
+if (browser) {
+	user.set(JSON.parse(localStorage.getItem('user')));
+	user.subscribe((val) => (localStorage.user = JSON.stringify(val)));
+}
