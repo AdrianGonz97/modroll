@@ -1,9 +1,19 @@
 <script context="module">
-	export async function load({ session }) {
+	// check if jwt exists and validate token
+	export async function load({ fetch, session }) {
 		const { jwt } = session;
-		let isConnected = !!jwt;
+		if (jwt) {
+			const resp = await fetch('/api/oauth/validate');
+			if (resp.ok) {
+				console.log('Valid access token');
+				return {
+					props: { isConnected: true },
+				};
+			}
+		}
+		console.log('Invalid access token');
 		return {
-			props: { isConnected },
+			props: { isConnected: false },
 		};
 	}
 </script>

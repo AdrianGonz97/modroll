@@ -1,8 +1,7 @@
 import cookie from 'cookie';
-import { oauth } from '../_oauth';
 import { getAccessToken } from '../../../../util/jwt';
 
-export async function post(request) {
+export async function get(request) {
 	console.log('Validating access token');
 	const jwt = request.locals.jwt;
 	const accessToken = getAccessToken(jwt);
@@ -14,7 +13,9 @@ export async function post(request) {
 	const headers = { Authorization: 'Bearer ' + accessToken };
 
 	try {
-		const resp = await oauth('validate', headers, null, null);
+		const resp = await fetch('https://id.twitch.tv/oauth2/validate', {
+			headers,
+		});
 
 		const jwtCookie = cookie.serialize('jwt', '', {
 			path: '/',
