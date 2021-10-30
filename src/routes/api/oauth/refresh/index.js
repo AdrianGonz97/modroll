@@ -1,4 +1,4 @@
-import { oauth } from '../../../util/twitch/oauth';
+import { oauth } from '../_oauth';
 import dotenv from 'dotenv';
 dotenv.config();
 

@@ -1,4 +1,4 @@
-import { oauth } from '../../../util/twitch/oauth';
+import { oauth } from '../_oauth';
 
 export async function post({ body }) {
 	console.log('Validating access token');

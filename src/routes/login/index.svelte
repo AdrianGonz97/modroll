@@ -9,7 +9,7 @@
 		const state = $page.query.get('state');
 
 		if (state === localStorage.getItem('state')) {
-			const resp = await fetch('/api/auth', {
+			const resp = await fetch('/api/oauth/auth', {
 				method: 'POST',
 				headers: { Accept: 'application/json' },
 				body: JSON.stringify({ code }),

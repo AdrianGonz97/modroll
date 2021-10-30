@@ -1,6 +1,6 @@
 import cookie from 'cookie';
-import { oauth } from '../../../util/twitch/oauth';
-import { getAccessToken } from '../../../util/jwt';
+import { oauth } from '../_oauth';
+import { getAccessToken } from '../../../../util/jwt';
 import dotenv from 'dotenv';
 dotenv.config();
 
