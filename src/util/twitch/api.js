@@ -7,22 +7,20 @@ export async function get(endpoint, token, params = null) {
 	let url = base + endpoint;
 	if (params) url += toQueryParams(params);
 
-	const resp = await fetch(url, {
+	return fetch(url, {
 		method: 'GET',
 		headers: {
 			Authorization: `Bearer ${token}`,
 			'Client-Id': process.env['VITE_CLIENT_ID'],
 		},
 	});
-
-	return resp;
 }
 
 export async function post(endpoint, body, token, params = null) {
 	let url = base + endpoint;
 	if (params) url += toQueryParams(params);
 
-	const resp = await fetch(url, {
+	return fetch(url, {
 		method: 'POST',
 		headers: {
 			Authorization: `Bearer ${token}`,
@@ -31,15 +29,13 @@ export async function post(endpoint, body, token, params = null) {
 		},
 		body,
 	});
-
-	return resp;
 }
 
 export async function patch(endpoint, body, token, params = null) {
 	let url = base + endpoint;
 	if (params) url += toQueryParams(params);
 
-	const resp = await fetch(url, {
+	return fetch(url, {
 		method: 'PATCH',
 		headers: {
 			Authorization: `Bearer ${token}`,
@@ -48,23 +44,19 @@ export async function patch(endpoint, body, token, params = null) {
 		},
 		body,
 	});
-
-	return resp;
 }
 
 export async function del(endpoint, token, params = null) {
 	let url = base + endpoint;
 	if (params) url += toQueryParams(params);
 
-	const resp = await fetch(url, {
+	return fetch(url, {
 		method: 'DELETE',
 		headers: {
 			Authorization: `Bearer ${token}`,
 			'Client-Id': process.env['VITE_CLIENT_ID'],
 		},
 	});
-
-	return resp;
 }
 
 // converts a Map of variables into a single string for url queries

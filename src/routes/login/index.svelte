@@ -3,6 +3,7 @@
 	import { onMount } from 'svelte';
 
 	let isLoading = true;
+	let showWarning = false;
 
 	onMount(async () => {
 		const code = $page.query.get('code');
@@ -16,12 +17,21 @@
 			});
 
 			if (resp.ok) {
+				const res = await fetch('/api/user/');
+				if (res.ok) {
+					const data = await res.json();
+					localStorage.setItem('user', JSON.stringify(data));
+				}
 				isLoading = false;
 				window.location.href = '/settings';
 			} else {
 				window.location.href = '/';
 			}
 		} else {
+			showWarning = true;
+			setTimeout(() => {
+				window.location.href = '/';
+			}, 5000);
 		}
 	});
 </script>
@@ -30,6 +40,11 @@
 	<h2>Processing...</h2>
 {:else}
 	<h2>Connected!</h2>
+{/if}
+
+{#if showWarning}
+	<h2>Something went very wrong! Please try again at later time.</h2>
+	<h2>Redirecting back to home...</h2>
 {/if}
 
 <style>

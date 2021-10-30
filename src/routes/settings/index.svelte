@@ -45,6 +45,7 @@
 	async function logout() {
 		const resp = await fetch('/api/oauth/revoke', { method: 'POST' });
 		if (resp.ok) console.log(await resp.json());
+		localStorage.clear();
 		window.location.reload();
 	}
 </script>
