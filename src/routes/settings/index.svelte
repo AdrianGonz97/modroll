@@ -68,7 +68,7 @@
 	{#if $user.displayName}
 		<span class="connection">Connected as: <b>{$user.displayName}</b></span>
 	{:else}
-		<span class="connection">Connected as: ...</span>
+		<span class="connection">...</span>
 	{/if}
 	<button on:click={logout}>Disconnect from Twitch</button>
 {:else}

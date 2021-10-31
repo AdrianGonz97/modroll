@@ -22,6 +22,16 @@ export async function post({ body }) {
 
 		const jwtToken = getSignedToken(data);
 
+		const expiresIn = Date.now() + 60 * 60 * 1000;
+		const validityCookie = cookie.serialize(
+			'validUntil',
+			expiresIn.toString(),
+			{
+				path: '/',
+				httpOnly: true,
+			}
+		);
+
 		const jwtCookie = cookie.serialize('jwt', jwtToken, {
 			path: '/',
 			httpOnly: true,
@@ -30,7 +40,7 @@ export async function post({ body }) {
 		return {
 			status: 200,
 			headers: {
-				'set-cookie': jwtCookie,
+				'set-cookie': [jwtCookie, validityCookie],
 			},
 			body: { message: 'authorization success' },
 		};
