@@ -1,13 +1,19 @@
 import cookie from 'cookie';
-import { getAccessToken } from '../../../../util/jwt';
+import { getAccessToken, refreshJWT } from '../../../../util/jwt';
 
 export async function post(request) {
 	console.log('Validating access token');
 	const jwt = request.locals.jwt;
-	const accessToken = getAccessToken(jwt);
+	let accessToken = getAccessToken(jwt);
 
 	if (!accessToken) {
-		return { status: 401, message: 'No access token provided' };
+		// for when the jwt expires
+		console.log('Refreshing JWT');
+		accessToken = refreshJWT(jwt); // use refresh token
+		if (!accessToken) {
+			console.log('No access token found');
+			return { status: 401, message: 'No access token provided' };
+		}
 	}
 
 	const headers = { Authorization: 'Bearer ' + accessToken };

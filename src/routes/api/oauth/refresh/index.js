@@ -7,14 +7,14 @@ export async function post({ body }) {
 	const rtoken = JSON.parse(body).rtoken;
 
 	const headers = { Accept: 'application/json' };
-	const urlParams = new Map();
-	urlParams.set('client_id', process.env['VITE_CLIENT_ID']);
-	urlParams.set('client_secret', process.env['VITE_CLIENT_SECRET']);
-	urlParams.set('grant_type', 'refresh_token');
-	urlParams.set('refresh_token', rtoken);
+	const params = new Map();
+	params.set('client_id', process.env['VITE_CLIENT_ID']);
+	params.set('client_secret', process.env['VITE_CLIENT_SECRET']);
+	params.set('grant_type', 'refresh_token');
+	params.set('refresh_token', encodeURIComponent(rtoken));
 
 	try {
-		const resp = await oauth('token', headers, null, urlParams);
+		const resp = await oauth('token', headers, null, params);
 		const data = await resp.json();
 
 		return {

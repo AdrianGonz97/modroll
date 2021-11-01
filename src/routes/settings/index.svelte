@@ -21,7 +21,7 @@
 				};
 			}
 		}
-		console.log('Invalid access token');
+		console.log('Invalid jwt token');
 		return {
 			props: { isConnected: false },
 		};
