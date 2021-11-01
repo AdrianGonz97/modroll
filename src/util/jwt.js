@@ -4,7 +4,7 @@ dotenv.config();
 
 export function getSignedToken(payload) {
 	return jwt.sign(payload, process.env['VITE_PRIVATE_KEY'], {
-		expiresIn: 10, //payload.expires_in - 600,
+		expiresIn: payload.expires_in - 600,
 	});
 }
 

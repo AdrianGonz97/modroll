@@ -9,7 +9,8 @@ export async function post(request) {
 	if (!accessToken) {
 		// for when the jwt expires
 		console.log('Refreshing JWT');
-		accessToken = refreshJWT(jwt); // use refresh token
+		var newJWT = await refreshJWT(jwt); // use refresh token
+		accessToken = getAccessToken(newJWT);
 		if (!accessToken) {
 			console.log('No access token found');
 			return { status: 401, message: 'No access token provided' };
@@ -34,11 +35,15 @@ export async function post(request) {
 					httpOnly: true,
 				}
 			);
+			const jwtCookie = cookie.serialize('jwt', newJWT, {
+				path: '/',
+				httpOnly: true,
+			});
 
 			return {
 				status: 200,
 				headers: {
-					'set-cookie': validityCookie,
+					'set-cookie': [jwtCookie, validityCookie],
 				},
 				body: { message: 'Access token is valid' },
 			};

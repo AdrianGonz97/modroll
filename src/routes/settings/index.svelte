@@ -15,12 +15,13 @@
 		if (jwt) {
 			const resp = await fetch('/api/oauth/validate', { method: 'POST' });
 			if (resp.ok) {
-				console.log('Valid access token');
+				console.log('Access token is valid');
 				return {
 					props: { isConnected: true, updatedValidity: true },
 				};
 			}
 		}
+
 		console.log('Invalid jwt token');
 		return {
 			props: { isConnected: false },
