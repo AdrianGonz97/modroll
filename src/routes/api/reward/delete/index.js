@@ -5,12 +5,12 @@ import { del } from '$util/twitch/api';
 export async function post(request) {
 	logger.info('Deleting user reward');
 	const jwt = request.locals.jwt;
-	const { access_token, id } = getUserToken(jwt);
+	const { access_token, userId } = getUserToken(jwt);
 
 	const rewardId = JSON.parse(request.body).rewardId;
 
 	const params = new Map();
-	params.set('broadcaster_id', id);
+	params.set('broadcaster_id', userId);
 	params.set('id', rewardId);
 
 	try {

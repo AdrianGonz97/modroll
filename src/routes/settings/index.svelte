@@ -1,32 +1,6 @@
 <script context="module">
-	// check if jwt exists and validate token
-	export async function load({ fetch, session }) {
-		const { jwt, validUntil } = session;
-		const isValid = Date.now() < validUntil;
-
-		if (jwt && isValid) {
-			// used to not revalidate access token on every single page load
-			console.log('Skipping revalidation');
-			return {
-				props: { isConnected: true },
-			};
-		}
-
-		if (jwt) {
-			const resp = await fetch('/api/oauth/validate', { method: 'POST' });
-			if (resp.ok) {
-				console.log('Access token is valid');
-				return {
-					props: { isConnected: true, updatedValidity: true },
-				};
-			}
-		}
-
-		console.log('Invalid jwt token');
-		return {
-			props: { isConnected: false },
-		};
-	}
+	import _load from './_loader';
+	export const load = _load;
 </script>
 
 <script>
@@ -38,6 +12,7 @@
 
 	export let isConnected;
 	export let updatedValidity = false;
+	export let rewards = [];
 	let url;
 
 	onMount(() => {
@@ -75,7 +50,7 @@
 {:else}
 	<a class="connection" href={url}>Connect to Twitch</a>
 {/if}
-<SettingsForm />
+<SettingsForm {rewards} />
 
 <style>
 	.connection,

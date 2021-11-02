@@ -5,12 +5,12 @@ import { post as twitchPost } from '$util/twitch/api';
 export async function post(request) {
 	logger.info('Creating user reward');
 	const jwt = request.locals.jwt;
-	const { access_token, id } = getUserToken(jwt);
+	const { access_token, userId } = getUserToken(jwt);
 
 	const reqBody = JSON.parse(request.body);
 
 	const params = new Map();
-	params.set('broadcaster_id', id);
+	params.set('broadcaster_id', userId);
 
 	const body = {
 		title: reqBody.title,

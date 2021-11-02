@@ -5,10 +5,10 @@ import { get as twitchGet } from '$util/twitch/api';
 export async function get(request) {
 	logger.info('Getting user rewards');
 	const jwt = request.locals.jwt;
-	const { access_token, id } = getUserToken(jwt);
+	const { access_token, userId } = getUserToken(jwt);
 	const params = new Map();
 
-	params.set('broadcaster_id', id);
+	params.set('broadcaster_id', userId);
 	params.set('only_manageable_rewards', 'true');
 
 	try {
@@ -26,7 +26,7 @@ export async function get(request) {
 					title: val.title,
 					prompt: val.prompt,
 					cost: val.cost,
-					isEnabled: val.is_enabled,
+					isActive: val.is_enabled,
 					isUserInputRequired: val.is_user_input_required,
 					isPaused: val.is_paused,
 					isInStock: val.is_in_stock,
