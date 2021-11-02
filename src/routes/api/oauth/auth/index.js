@@ -1,6 +1,6 @@
 import cookie from 'cookie';
 import logger from '$logger';
-import getUserInfo from './_user';
+import getUserInfo from '../_user';
 import { oauth } from '../_oauth';
 import { getSignedToken } from '$util/jwt';
 import dotenv from 'dotenv';
@@ -20,7 +20,6 @@ export async function post({ body }) {
 
 	try {
 		const resp = await oauth('token', headers, null, urlParams);
-
 		if (!resp.ok) throw new Error('Failed to authorize with Twitch');
 
 		const userToken = await resp.json();

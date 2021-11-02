@@ -1,10 +1,11 @@
 import logger from '$logger';
+import getUserInfo from '../_user';
 import { oauth } from '../_oauth';
 import dotenv from 'dotenv';
 dotenv.config();
 
 export async function post({ body }) {
-	logger.info('Getting refresh token');
+	logger.info('Getting new refresh token');
 	const rtoken = JSON.parse(body).rtoken;
 
 	const headers = { Accept: 'application/json' };
@@ -16,12 +17,22 @@ export async function post({ body }) {
 
 	try {
 		const resp = await oauth('token', headers, null, params);
-		const data = await resp.json();
+		if (!resp.ok) throw new Error('Failed to authorize with Twitch');
 
-		return {
-			status: 200,
-			body: data,
-		};
+		const userToken = await resp.json();
+
+		const userData = await getUserInfo(userToken.access_token);
+		if (userData) {
+			const token = {
+				...userToken,
+				...userData,
+			};
+
+			return {
+				status: 200,
+				body: token,
+			};
+		} else throw new Error('Authorization failed');
 	} catch (err) {
 		logger.error(err.message);
 		return { status: 404, body: err.message };
