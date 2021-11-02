@@ -1,11 +1,12 @@
 import cookie from 'cookie';
+import logger from '$logger';
 import { oauth } from '../_oauth';
-import { getSignedToken } from '../../../../util/jwt';
+import { getSignedToken } from '$util/jwt';
 import dotenv from 'dotenv';
 dotenv.config();
 
 export async function post({ body }) {
-	console.log('Getting access token');
+	logger.info('Getting access token');
 	const code = JSON.parse(body).code;
 
 	const urlParams = new Map();
@@ -45,7 +46,7 @@ export async function post({ body }) {
 			body: { message: 'authorization success' },
 		};
 	} catch (err) {
-		console.error(err);
+		logger.error(err.message);
 		return { status: 404, body: err.message };
 	}
 }

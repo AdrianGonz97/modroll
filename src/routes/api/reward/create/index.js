@@ -1,8 +1,9 @@
-import { getAccessToken } from '../../../../util/jwt';
-import { post as twitchPost } from '../../../../util/twitch/api';
+import logger from '$logger';
+import { getAccessToken } from '$util/jwt';
+import { post as twitchPost } from '$util/twitch/api';
 
 export async function post(request) {
-	console.log('Creating user reward');
+	logger.info('Creating user reward');
 	const jwt = request.locals.jwt;
 	const broadcasterId = request.locals.broadcasterId;
 	const accessToken = getAccessToken(jwt);
@@ -28,7 +29,7 @@ export async function post(request) {
 			params
 		);
 		if (resp.ok) {
-			console.log('Got newly created custom reward');
+			logger.info('Got newly created custom reward');
 			const data = await resp.json();
 			const reward = data.data[0];
 
@@ -48,10 +49,10 @@ export async function post(request) {
 				},
 			};
 		}
-		console.log('[ERR]: Failed to create user rewards!');
+		logger.warn('Failed to create user rewards');
 		return { status: resp.status, body: resp.body };
 	} catch (err) {
-		console.error(err);
+		logger.error(err.message);
 		return { status: 404, body: err.message };
 	}
 }

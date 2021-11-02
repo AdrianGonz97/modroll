@@ -1,3 +1,4 @@
+import logger from '$logger';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 dotenv.config();
@@ -14,7 +15,7 @@ export function getAccessToken(token) {
 		const accessToken = data.access_token;
 		return accessToken;
 	} catch (err) {
-		console.log('JWT is expired');
+		logger.warn('JWT is expired');
 		return '';
 	}
 }
@@ -34,7 +35,7 @@ export async function refreshJWT(token) {
 		const payload = await resp.json();
 		return getSignedToken(payload);
 	} catch (err) {
-		console.log('Failed to refresh jwt token');
+		logger.warn('Failed to refresh jwt token');
 		return '';
 	}
 }

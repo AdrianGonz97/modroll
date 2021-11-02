@@ -1,9 +1,10 @@
+import logger from '$logger';
 import { oauth } from '../_oauth';
 import dotenv from 'dotenv';
 dotenv.config();
 
 export async function post({ body }) {
-	console.log('Getting refresh token');
+	logger.info('Getting refresh token');
 	const rtoken = JSON.parse(body).rtoken;
 
 	const headers = { Accept: 'application/json' };
@@ -22,6 +23,7 @@ export async function post({ body }) {
 			body: data,
 		};
 	} catch (err) {
+		logger.error(err.message);
 		return { status: 404, body: err.message };
 	}
 }

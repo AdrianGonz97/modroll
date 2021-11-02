@@ -1,5 +1,5 @@
-import { getAccessToken } from '../../../../util/jwt';
-import { get as twitchGet } from '../../../../util/twitch/api';
+import { getAccessToken } from '$util/jwt';
+import { get as twitchGet } from '$util/twitch/api';
 
 export async function get(request) {
 	console.log('Getting user rewards');

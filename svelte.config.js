@@ -1,5 +1,6 @@
 import preprocess from 'svelte-preprocess';
 import adapter from '@sveltejs/adapter-static';
+import path from 'path';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -8,6 +9,15 @@ const config = {
 	preprocess: preprocess(),
 
 	kit: {
+		// used for adding custom aliases
+		vite: {
+			resolve: {
+				alias: {
+					$logger: path.resolve('src/logger'),
+					$util: path.resolve('src/util'),
+				},
+			},
+		},
 		// hydrate the <div id="svelte"> element in src/app.html
 		target: '#svelte',
 		appDir: 'app',

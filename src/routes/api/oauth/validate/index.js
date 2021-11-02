@@ -1,18 +1,19 @@
 import cookie from 'cookie';
-import { getAccessToken, refreshJWT } from '../../../../util/jwt';
+import logger from '$logger';
+import { getAccessToken, refreshJWT } from '$util/jwt';
 
 export async function post(request) {
-	console.log('Validating access token');
-	const jwt = request.locals.jwt;
+	logger.info('Validating access token');
+	let jwt = request.locals.jwt;
 	let accessToken = getAccessToken(jwt);
 
 	if (!accessToken) {
 		// for when the jwt expires
-		console.log('Refreshing JWT');
-		var newJWT = await refreshJWT(jwt); // use refresh token
-		accessToken = getAccessToken(newJWT);
+		logger.info('Refreshing JWT');
+		jwt = await refreshJWT(jwt); // use refresh token
+		accessToken = getAccessToken(jwt);
 		if (!accessToken) {
-			console.log('No access token found');
+			logger.warn('No access token found');
 			return { status: 401, message: 'No access token provided' };
 		}
 	}
@@ -36,7 +37,7 @@ export async function post(request) {
 					httpOnly: true,
 				}
 			);
-			const jwtCookie = cookie.serialize('jwt', newJWT, {
+			const jwtCookie = cookie.serialize('jwt', jwt, {
 				path: '/',
 				httpOnly: true,
 			});
@@ -74,6 +75,7 @@ export async function post(request) {
 			};
 		}
 	} catch (err) {
+		logger.error(err.message);
 		return { status: 404, body: err.message };
 	}
 }

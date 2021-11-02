@@ -1,8 +1,9 @@
-import { getAccessToken } from '../../../../util/jwt';
-import { del } from '../../../../util/twitch/api';
+import logger from '$logger';
+import { getAccessToken } from '$util/jwt';
+import { del } from '$util/twitch/api';
 
 export async function post(request) {
-	console.log('Deleting user reward');
+	logger.info('Deleting user reward');
 	const jwt = request.locals.jwt;
 	const broadcasterId = request.locals.broadcasterId;
 	const accessToken = getAccessToken(jwt);
@@ -20,7 +21,7 @@ export async function post(request) {
 			params
 		);
 		if (resp.status === 204) {
-			console.log('Deleted custom reward');
+			logger.info('Deleted custom reward');
 			return {
 				status: 204,
 				body: {
@@ -28,10 +29,10 @@ export async function post(request) {
 				},
 			};
 		}
-		console.log('[ERR]: Failed to delete reward!');
+		logger.warn('Failed to delete reward');
 		return { status: resp.status, body: resp.body };
 	} catch (err) {
-		console.error(err);
+		logger.error(err.message);
 		return { status: 404, body: err.message };
 	}
 }
