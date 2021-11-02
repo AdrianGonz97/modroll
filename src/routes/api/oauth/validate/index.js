@@ -11,10 +11,17 @@ export async function post(request) {
 		// for when the jwt expires
 		logger.info('Refreshing JWT');
 		jwt = await refreshJWT(jwt); // use refresh token
-		accessToken = getAccessToken(jwt);
-		if (!accessToken) {
-			logger.warn('No access token found');
-			return { status: 401, message: 'No access token provided' };
+		if (jwt) {
+			accessToken = getAccessToken(jwt);
+			if (!accessToken) {
+				logger.warn('No access token found');
+				return {
+					status: 401,
+					body: { message: 'No access token provided' },
+				};
+			}
+		} else {
+			return { status: 401, body: { message: 'Failed to refresh JWT' } };
 		}
 	}
 

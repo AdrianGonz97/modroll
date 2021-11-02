@@ -20,6 +20,27 @@ export function getAccessToken(token) {
 	}
 }
 
+export function getUserId(token) {
+	try {
+		const data = jwt.verify(token, process.env['VITE_PRIVATE_KEY']);
+		const userId = data.id;
+		return userId;
+	} catch (err) {
+		logger.warn('JWT is expired');
+		return '';
+	}
+}
+
+export function getUserToken(token) {
+	try {
+		const data = jwt.verify(token, process.env['VITE_PRIVATE_KEY']);
+		return data;
+	} catch (err) {
+		logger.warn('JWT is expired');
+		return '';
+	}
+}
+
 // used for when the jwt expires
 export async function refreshJWT(token) {
 	// refreshing oauth token
@@ -32,8 +53,13 @@ export async function refreshJWT(token) {
 				body: JSON.stringify({ rtoken: data.refresh_token }),
 			}
 		);
-		const payload = await resp.json();
-		return getSignedToken(payload);
+		if (resp.ok) {
+			logger.info('Token has been refreshed');
+			const newOauthToken = await resp.json();
+			return getSignedToken(newOauthToken);
+		} else {
+			throw new Error('Could not acquire new refresh token');
+		}
 	} catch (err) {
 		logger.warn('Failed to refresh jwt token');
 		return '';

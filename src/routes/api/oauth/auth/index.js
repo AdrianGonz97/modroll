@@ -1,5 +1,6 @@
 import cookie from 'cookie';
 import logger from '$logger';
+import getUserInfo from './_user';
 import { oauth } from '../_oauth';
 import { getSignedToken } from '$util/jwt';
 import dotenv from 'dotenv';
@@ -19,32 +20,42 @@ export async function post({ body }) {
 
 	try {
 		const resp = await oauth('token', headers, null, urlParams);
-		const data = await resp.json();
 
-		const jwtToken = getSignedToken(data);
+		if (!resp.ok) throw new Error('Failed to authorize with Twitch');
 
-		const expiresIn = Date.now() + 60 * 60 * 1000;
-		const validityCookie = cookie.serialize(
-			'validUntil',
-			expiresIn.toString(),
-			{
+		const userToken = await resp.json();
+
+		const userData = await getUserInfo(userToken.access_token);
+		if (userData) {
+			const token = {
+				...userToken,
+				...userData,
+			};
+			const jwtToken = getSignedToken(token);
+
+			const expiresIn = Date.now() + 60 * 60 * 1000;
+			const validityCookie = cookie.serialize(
+				'validUntil',
+				expiresIn.toString(),
+				{
+					path: '/',
+					httpOnly: true,
+				}
+			);
+
+			const jwtCookie = cookie.serialize('jwt', jwtToken, {
 				path: '/',
 				httpOnly: true,
-			}
-		);
+			});
 
-		const jwtCookie = cookie.serialize('jwt', jwtToken, {
-			path: '/',
-			httpOnly: true,
-		});
-
-		return {
-			status: 200,
-			headers: {
-				'set-cookie': [jwtCookie, validityCookie],
-			},
-			body: { message: 'authorization success' },
-		};
+			return {
+				status: 200,
+				headers: {
+					'set-cookie': [jwtCookie, validityCookie],
+				},
+				body: { message: 'authorization success' },
+			};
+		} else throw new Error('Authorization failed');
 	} catch (err) {
 		logger.error(err.message);
 		return { status: 404, body: err.message };

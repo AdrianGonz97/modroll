@@ -33,7 +33,7 @@ export async function post(request) {
 				},
 			};
 		}
-		logger.warn('[ERR]: Failed to get user info!');
+		logger.warn('Failed to get user info!');
 		return { status: resp.status, body: resp.body };
 	} catch (err) {
 		logger.error(err.message);
