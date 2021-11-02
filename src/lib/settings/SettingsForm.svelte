@@ -4,8 +4,36 @@
 	let rewardName = 'Some Reward Name';
 	let bitAmount = 69;
 
-	async function createReward() {}
-	async function deleteReward() {}
+	// reward inputs
+	let name;
+	let pointCost;
+	let prompt;
+
+	// bit input
+	let bits;
+
+	async function createReward() {
+		const resp = await fetch('/api/reward/create', {
+			method: 'POST',
+			body: JSON.stringify({
+				title: name,
+				cost: pointCost,
+				prompt,
+			}),
+		});
+		const data = await resp.json();
+		console.log(data);
+	}
+	async function deleteReward() {
+		const resp = await fetch('/api/reward/delete', {
+			method: 'POST',
+			body: JSON.stringify({
+				rewardId: '',
+			}),
+		});
+		const data = await resp.json();
+		console.log(data);
+	}
 	function saveBitAmount() {}
 	function stopBitListing() {}
 	// let the modroll sign-ins for 10 mins and cut it off, making it expire 24 hours
@@ -20,20 +48,30 @@
 			<span class="group-name">Channel Point Reward:</span>
 			<label>
 				<span><span class="required">*</span> Reward Name:</span>
-				<input type="text" placeholder="ex. Modroll" />
+				<input
+					type="text"
+					placeholder="ex. Modroll"
+					bind:value={name}
+				/>
 			</label>
 			<label>
 				<span><span class="required">*</span> Point Cost:</span>
-				<input type="number" placeholder="ex. 50000" />
+				<input
+					type="number"
+					placeholder="ex. 50000"
+					bind:value={pointCost}
+				/>
 			</label>
 			<label>
 				Description
 				<textarea
 					type="text"
 					placeholder="ex. Pick a number between 1-50 for a chance of mod"
+					bind:value={prompt}
 				/>
 			</label>
-			<button on:click={createReward}>Create Reward</button>
+			<button on:click|preventDefault={createReward}>Create Reward</button
+			>
 		</div>
 		<div class="form-group">
 			<span class="group-name">Currently Watching Reward:</span>
@@ -54,6 +92,7 @@
 					type="number"
 					placeholder="ex. 500"
 					on:submit={saveBitAmount}
+					bind:value={bits}
 				/>
 			</label>
 			<button on:click={saveBitAmount}>Save Amount</button>

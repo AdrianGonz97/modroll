@@ -1,7 +1,8 @@
+import cookie from 'cookie';
 import { getAccessToken } from '../../../util/jwt';
 import { get as twitchGet } from '../../../util/twitch/api';
 
-export async function get(request) {
+export async function post(request) {
 	console.log('Getting user info');
 	const jwt = request.locals.jwt;
 	const accessToken = getAccessToken(jwt);
@@ -13,8 +14,16 @@ export async function get(request) {
 			const data = await resp.json();
 			const user = data.data[0];
 
+			const idCookie = cookie.serialize('broadcasterId', user.id, {
+				path: '/',
+				httpOnly: true,
+			});
+
 			return {
 				status: 200,
+				headers: {
+					'set-cookie': idCookie,
+				},
 				body: {
 					displayName: user.display_name,
 					userId: user.id,

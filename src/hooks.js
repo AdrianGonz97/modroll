@@ -6,6 +6,7 @@ export const handle = async ({ request, resolve }) => {
 	request.locals.userid = cookies.userid || uuid();
 	request.locals.jwt = cookies.jwt || '';
 	request.locals.validUntil = cookies.validUntil || '0';
+	request.locals.broadcasterId = cookies.broadcasterId || '0';
 
 	// TODO https://github.com/sveltejs/kit/issues/1046
 	if (request.query.has('_method')) {
@@ -34,5 +35,6 @@ export function getSession(request) {
 	return {
 		jwt: request.locals.jwt ?? '',
 		validUntil: request.locals.validUntil ?? '0',
+		broadcasterId: request.locals.broadcasterId ?? '0',
 	};
 }

@@ -4,9 +4,9 @@ import { get as twitchGet } from '../../../../util/twitch/api';
 export async function get(request) {
 	console.log('Getting user rewards');
 	const jwt = request.locals.jwt;
+	const broadcasterId = request.locals.broadcasterId;
 	const accessToken = getAccessToken(jwt);
 	const params = new Map();
-	const broadcasterId = JSON.parse(request.body).userId;
 
 	params.set('broadcaster_id', broadcasterId);
 	params.set('only_manageable_rewards', 'true');
@@ -18,7 +18,7 @@ export async function get(request) {
 			params
 		);
 		if (resp.ok) {
-			console.log('Got user rewards');
+			console.log('Got custom rewards');
 			const data = await resp.json();
 			const rewards = data.data.map((val) => {
 				return {

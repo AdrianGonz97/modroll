@@ -26,6 +26,7 @@ export async function post(request) {
 
 		// if token is validated
 		if (resp.ok) {
+			const data = resp.json();
 			const expiresIn = Date.now() + 60 * 60 * 1000;
 			const validityCookie = cookie.serialize(
 				'validUntil',
@@ -39,11 +40,15 @@ export async function post(request) {
 				path: '/',
 				httpOnly: true,
 			});
+			const idCookie = cookie.serialize('broadcasterId', data.user_id, {
+				path: '/',
+				httpOnly: true,
+			});
 
 			return {
 				status: 200,
 				headers: {
-					'set-cookie': [jwtCookie, validityCookie],
+					'set-cookie': [jwtCookie, validityCookie, idCookie],
 				},
 				body: { message: 'Access token is valid' },
 			};
@@ -56,10 +61,14 @@ export async function post(request) {
 				path: '/',
 				httpOnly: true,
 			});
+			const idCookie = cookie.serialize('broadcasterId', '0', {
+				path: '/',
+				httpOnly: true,
+			});
 			return {
 				status: resp.status,
 				headers: {
-					'set-cookie': [jwtCookie, validityCookie],
+					'set-cookie': [jwtCookie, validityCookie, idCookie],
 				},
 				body: { message: 'Invalid access token' },
 			};

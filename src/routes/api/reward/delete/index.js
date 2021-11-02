@@ -1,0 +1,37 @@
+import { getAccessToken } from '../../../../util/jwt';
+import { del } from '../../../../util/twitch/api';
+
+export async function post(request) {
+	console.log('Deleting user reward');
+	const jwt = request.locals.jwt;
+	const broadcasterId = request.locals.broadcasterId;
+	const accessToken = getAccessToken(jwt);
+
+	const reqBody = JSON.parse(request.body);
+
+	const params = new Map();
+	params.set('broadcaster_id', broadcasterId);
+	params.set('id', reqBody.rewardId);
+
+	try {
+		const resp = await del(
+			'channel_points/custom_rewards',
+			accessToken,
+			params
+		);
+		if (resp.status === 204) {
+			console.log('Deleted custom reward');
+			return {
+				status: 204,
+				body: {
+					message: 'No content',
+				},
+			};
+		}
+		console.log('[ERR]: Failed to delete reward!');
+		return { status: resp.status, body: resp.body };
+	} catch (err) {
+		console.error(err);
+		return { status: 404, body: err.message };
+	}
+}
