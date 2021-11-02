@@ -17,7 +17,7 @@
 			});
 
 			if (resp.ok) {
-				const res = await fetch('/api/user', { method: 'POST' });
+				const res = await fetch('/api/user');
 				if (res.ok) {
 					const data = await res.json();
 					localStorage.setItem('user', JSON.stringify(data));

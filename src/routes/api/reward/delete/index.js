@@ -1,23 +1,22 @@
 import logger from '$logger';
-import { getAccessToken } from '$util/jwt';
+import { getUserToken } from '$util/jwt';
 import { del } from '$util/twitch/api';
 
 export async function post(request) {
 	logger.info('Deleting user reward');
 	const jwt = request.locals.jwt;
-	const broadcasterId = request.locals.broadcasterId;
-	const accessToken = getAccessToken(jwt);
+	const { access_token, id } = getUserToken(jwt);
 
-	const reqBody = JSON.parse(request.body);
+	const rewardId = JSON.parse(request.body).rewardId;
 
 	const params = new Map();
-	params.set('broadcaster_id', broadcasterId);
-	params.set('id', reqBody.rewardId);
+	params.set('broadcaster_id', id);
+	params.set('id', rewardId);
 
 	try {
 		const resp = await del(
 			'channel_points/custom_rewards',
-			accessToken,
+			access_token,
 			params
 		);
 		if (resp.status === 204) {

@@ -1,17 +1,16 @@
 import logger from '$logger';
-import { getAccessToken } from '$util/jwt';
+import { getUserToken } from '$util/jwt';
 import { post as twitchPost } from '$util/twitch/api';
 
 export async function post(request) {
 	logger.info('Creating user reward');
 	const jwt = request.locals.jwt;
-	const broadcasterId = request.locals.broadcasterId;
-	const accessToken = getAccessToken(jwt);
+	const { access_token, id } = getUserToken(jwt);
 
 	const reqBody = JSON.parse(request.body);
 
 	const params = new Map();
-	params.set('broadcaster_id', broadcasterId);
+	params.set('broadcaster_id', id);
 
 	const body = {
 		title: reqBody.title,
@@ -25,7 +24,7 @@ export async function post(request) {
 		const resp = await twitchPost(
 			'channel_points/custom_rewards',
 			JSON.stringify(body),
-			accessToken,
+			access_token,
 			params
 		);
 		if (resp.ok) {

@@ -20,11 +20,15 @@ export function getAccessToken(token) {
 	}
 }
 
-export function getUserId(token) {
+export function getUserInfo(token) {
 	try {
 		const data = jwt.verify(token, process.env['VITE_PRIVATE_KEY']);
-		const userId = data.id;
-		return userId;
+		return {
+			id: data.id,
+			displayName: data.displayName,
+			login: data.login,
+			profileImageUrl: data.profileImageUrl,
+		};
 	} catch (err) {
 		logger.warn('JWT is expired');
 		return '';

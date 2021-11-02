@@ -3,10 +3,11 @@ import { get as twitchGet } from '$util/twitch/api';
 
 // returns null if userinfo fails to fetch from twitch
 export default async function getUserInfo(accessToken) {
+	logger.info('Fetching user info from twitch');
 	try {
 		const resp = await twitchGet('users', accessToken, null);
 		if (resp.ok) {
-			logger.info('Got user info');
+			logger.info('Got new user info');
 			const data = await resp.json();
 			const user = data.data[0];
 
