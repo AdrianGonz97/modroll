@@ -1,5 +1,13 @@
 <script>
-	import { min, max, users, winner, pastMods, currentMod, rollCount } from '../stores/modstore';
+	import {
+		min,
+		max,
+		users,
+		winner,
+		pastMods,
+		currentMod,
+		rollCount,
+	} from '../stores/modstore';
 	let player;
 	let volume = 50;
 	let paused = true;
@@ -22,7 +30,6 @@
 		setTimeout(() => {
 			// rolls in range of [min, max]
 			const num = Math.floor(Math.random() * ($max - $min + 1) + $min);
-			console.log(num);
 
 			// highlight user name here
 			const winnerName = $users.get(num);
@@ -36,7 +43,7 @@
 			} else {
 				winner.set({ name: 'None', num });
 			}
-			console.log('Winner: ', winnerName);
+			console.log(`Winner: ${num} - ${winnerName}`);
 		}, 3200);
 	}
 </script>
@@ -45,7 +52,13 @@
 	<button on:click={handleClick} disabled={!paused}>CLICK ME TO ROLL</button>
 	<div class="volume-container">
 		<span>Drum Volume: {volume}%</span>
-		<input type="range" min="0" max="100" bind:value={volume} on:change={setVolume} />
+		<input
+			type="range"
+			min="0"
+			max="100"
+			bind:value={volume}
+			on:change={setVolume}
+		/>
 	</div>
 	<audio src="drumroll.mp3" bind:paused bind:this={player} />
 </div>
