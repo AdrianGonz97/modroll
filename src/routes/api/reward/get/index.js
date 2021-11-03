@@ -18,7 +18,6 @@ export async function get(request) {
 			params
 		);
 		if (resp.ok) {
-			logger.info('Got custom rewards');
 			const data = await resp.json();
 			const rewards = data.data.map((val) => {
 				return {

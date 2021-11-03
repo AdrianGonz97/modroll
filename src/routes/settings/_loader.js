@@ -5,32 +5,26 @@ export default async function load({ fetch, session }) {
 
 	if (jwt && isValid) {
 		// used to not revalidate access token on every single page load
+		console.log('User is already validated');
+		let userInfo;
 		let rewards = [];
-		console.log('Skipping revalidation');
-		const resp = await fetch('api/reward/get');
-		if (resp.ok) {
-			const data = await resp.json();
-			rewards = data.rewards;
-		}
-		return {
-			props: { isConnected: true, rewards },
-		};
-	}
+		const promises = [fetch('api/reward/get'), fetch('api/user')];
+		const resps = await Promise.all(promises);
 
-	if (jwt) {
-		const resp = await fetch('/api/oauth/validate', { method: 'POST' });
-		if (resp.ok) {
-			let rewards = [];
-			console.log('Access token is valid');
-			const resp = await fetch('api/reward/get');
-			if (resp.ok) {
-				const data = await resp.json();
-				rewards = data.rewards;
-			}
+		if (resps.every((resp) => resp.ok)) {
+			const data = resps.map((resp) => resp.json());
+			const finalData = await Promise.all(data);
+
+			rewards = finalData[0].rewards;
+			userInfo = finalData[1];
+		} else {
 			return {
-				props: { isConnected: true, updatedValidity: true, rewards },
+				props: { isConnected: true, rewards: null, userInfo },
 			};
 		}
+		return {
+			props: { isConnected: true, rewards, userInfo },
+		};
 	}
 
 	console.log('Invalid jwt token');

@@ -1,10 +1,10 @@
-import cookie from 'cookie';
+// import cookie from 'cookie';
 import logger from '$logger';
 import { getAccessToken, refreshJWT } from '$util/jwt';
 
 export async function post(request) {
 	logger.info('Validating access token');
-	let jwt = request.locals.jwt;
+	let jwt = request.locals.jwt || JSON.parse(request.body).jwt;
 	let accessToken = getAccessToken(jwt);
 
 	if (!accessToken) {
@@ -35,42 +35,45 @@ export async function post(request) {
 		if (resp.ok) {
 			// token is validated
 			const expiresIn = Date.now() + 60 * 60 * 1000;
-			const validityCookie = cookie.serialize(
-				'validUntil',
-				expiresIn.toString(),
-				{
-					path: '/',
-					httpOnly: true,
-				}
-			);
-			const jwtCookie = cookie.serialize('jwt', jwt, {
-				path: '/',
-				httpOnly: true,
-			});
+			// const validityCookie = cookie.serialize(
+			// 	'validUntil',
+			// 	expiresIn.toString(),
+			// 	{
+			// 		path: '/',
+			// 		httpOnly: true,
+			// 	}
+			// );
+			// const jwtCookie = cookie.serialize('jwt', jwt, {
+			// 	path: '/',
+			// 	httpOnly: true,
+			// });
 
 			return {
 				status: 200,
-				headers: {
-					'set-cookie': [jwtCookie, validityCookie],
-				},
-				body: { message: 'Access token is valid' },
+				// headers: {
+				// 	'set-cookie': [jwtCookie, validityCookie],
+				// },
+				// body: { message: 'Access token is valid' },
+				body: { validUntil: expiresIn.toString(), jwt },
 			};
 		} else {
+			logger.warn('Reseting cookies');
 			// reset cookies
-			const validityCookie = cookie.serialize('validUntil', '0', {
-				path: '/',
-				httpOnly: true,
-			});
-			const jwtCookie = cookie.serialize('jwt', '', {
-				path: '/',
-				httpOnly: true,
-			});
+			// const validityCookie = cookie.serialize('validUntil', '0', {
+			// 	path: '/',
+			// 	httpOnly: true,
+			// });
+			// const jwtCookie = cookie.serialize('jwt', '', {
+			// 	path: '/',
+			// 	httpOnly: true,
+			// });
 			return {
 				status: resp.status,
-				headers: {
-					'set-cookie': [jwtCookie, validityCookie],
-				},
-				body: { message: 'Invalid access token' },
+				// headers: {
+				// 	'set-cookie': [jwtCookie, validityCookie],
+				// },
+				// body: { message: 'Invalid access token' },
+				body: { validUntil: '0', jwt: '' },
 			};
 		}
 	} catch (err) {

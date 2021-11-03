@@ -1,5 +1,8 @@
 import cookie from 'cookie';
+import logger from '$logger';
 import { v4 as uuid } from '@lukeed/uuid';
+import dotenv from 'dotenv';
+dotenv.config();
 
 export const handle = async ({ request, resolve }) => {
 	const cookies = cookie.parse(request.headers.cookie || '');
@@ -25,6 +28,47 @@ export const handle = async ({ request, resolve }) => {
 				httpOnly: true,
 			}
 		);
+	}
+
+	if (Date.now() > cookies.validUntil && cookies.validUntil !== '0') {
+		logger.info('Validating jwt');
+		// if jwt is no longer valid
+		try {
+			const resp = await fetch(
+				process.env['VITE_BASE_PATH'] + '/api/oauth/validate',
+				{ method: 'POST', body: JSON.stringify({ jwt: cookies.jwt }) }
+			);
+			if (resp.ok) {
+				logger.info('JWT is valid, setting cookies');
+				const data = await resp.json();
+				const jwtCookie = cookie.serialize('jwt', data.jwt, {
+					path: '/',
+					httpOnly: true,
+				});
+				const validCookie = cookie.serialize(
+					'validUntil',
+					data.validUntil,
+					{
+						path: '/',
+						httpOnly: true,
+					}
+				);
+				response.headers['set-cookie'] = [jwtCookie, validCookie];
+			} else {
+				logger.warn('Reseting user cookies');
+				const jwtCookie = cookie.serialize('jwt', '', {
+					path: '/',
+					httpOnly: true,
+				});
+				const validCookie = cookie.serialize('validUntil', '0', {
+					path: '/',
+					httpOnly: true,
+				});
+				response.headers['set-cookie'] = [jwtCookie, validCookie];
+			}
+		} catch (err) {
+			logger.error(err.message);
+		}
 	}
 
 	return response;

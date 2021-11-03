@@ -7,7 +7,6 @@ export async function get(request) {
 	const userInfo = getUserInfo(jwt);
 
 	if (userInfo) {
-		logger.info('Got stored user info');
 		return {
 			status: 200,
 			body: userInfo,

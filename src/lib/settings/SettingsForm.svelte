@@ -1,7 +1,7 @@
 <script>
 	import CreatedReward from './CreatedReward.svelte';
 
-	export let rewards = [];
+	export let rewards;
 	let isWatchingBits = true;
 	let bitAmount = 69;
 
@@ -72,10 +72,18 @@
 			>
 		</div>
 		<div class="rewards">
-			{#each rewards as reward}
-				<CreatedReward {...reward} />
-				<!-- <CreatedReward isActive={true} name="modroll" id="je" /> -->
-			{/each}
+			{#if rewards}
+				{#each rewards as reward}
+					<CreatedReward {...reward} />
+				{/each}
+			{:else}
+				<div class="form-group">
+					<span class="watching-text"
+						>You are not able to use any channel point rewards. Only
+						affiliates and partners are able to use this feature.</span
+					>
+				</div>
+			{/if}
 		</div>
 		<div class="form-group">
 			<span class="group-name">Bits:</span>
