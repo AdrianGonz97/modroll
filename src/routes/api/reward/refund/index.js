@@ -3,30 +3,31 @@ import { getUserToken } from '$util/jwt';
 import { patch } from '$util/twitch/api';
 
 export async function post(request) {
-	logger.info('Updating user reward');
+	logger.info('Refunding user redemption');
 	const jwt = request.locals.jwt;
 	const { access_token, userId } = getUserToken(jwt);
 
-	const rewardId = JSON.parse(request.body).id;
-	const isActive = JSON.parse(request.body).isActive;
+	const id = JSON.parse(request.body).id; // id of reward redemption
+	const rewardId = JSON.parse(request.body).rewardId;
 
 	const params = new Map();
 	params.set('broadcaster_id', userId);
-	params.set('id', rewardId); //encodeURIComponent
+	params.set('id', id);
+	params.set('reward_id', rewardId);
 
 	const body = {
-		is_enabled: isActive,
+		status: 'CANCELED',
 	};
 
 	try {
 		const resp = await patch(
-			'channel_points/custom_rewards',
+			'channel_points/custom_rewards/redemptions',
 			JSON.stringify(body),
 			access_token,
 			params
 		);
 		if (resp.ok) {
-			logger.info('Updated custom reward');
+			logger.info('Refunded redemption');
 			return {
 				status: 200,
 				body: {
@@ -34,7 +35,7 @@ export async function post(request) {
 				},
 			};
 		}
-		logger.warn('Failed to update reward');
+		logger.warn('Failed to refund redemption');
 		return { status: resp.status, body: resp.body };
 	} catch (err) {
 		logger.error(err.message);
