@@ -7,11 +7,11 @@ export async function post(request) {
 	const jwt = request.locals.jwt;
 	const { access_token, userId } = getUserToken(jwt);
 
-	const rewardId = JSON.parse(request.body).rewardId;
+	const rewardId = JSON.parse(request.body).id;
 
 	const params = new Map();
 	params.set('broadcaster_id', userId);
-	params.set('id', rewardId);
+	params.set('id', rewardId); //encodeURIComponent
 
 	try {
 		const resp = await del(

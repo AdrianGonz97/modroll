@@ -15,8 +15,7 @@
 
 	async function createReward() {
 		if (name && pointCost) {
-			console.log(name, pointCost);
-			const resp = await fetch('/api/reward/create', {
+			await fetch('/api/reward/create', {
 				method: 'POST',
 				body: JSON.stringify({
 					title: name,
@@ -24,21 +23,24 @@
 					prompt,
 				}),
 			});
-			const data = await resp.json();
-			console.log(data);
+			window.location.reload();
 		} else {
 			alert(`Fields 'Reward Name' and 'Point Cost' are required!`);
 		}
 	}
+
 	function saveBitAmount() {}
 	function stopBitListing() {}
 	// let the modroll sign-ins for 10 mins and cut it off, making it expire 24 hours
 </script>
 
 <div class="settings-container">
-	<span class="warning"
-		>Fields labeled with <span class="required">*</span> are required.</span
-	>
+	<div class="title-container">
+		<span class="warning"
+			>Fields labeled with <span class="required">*</span> are required.</span
+		>
+		<span class="warning">Created Rewards and Saved Settings</span>
+	</div>
 	<form>
 		<div class="form-group">
 			<span class="group-name">Channel Point Reward:</span>
@@ -108,6 +110,10 @@
 		flex-direction: column;
 		margin: 2rem;
 		gap: 1rem;
+	}
+	.title-container {
+		display: flex;
+		justify-content: space-around;
 	}
 	.warning {
 		text-align: center;

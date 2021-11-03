@@ -6,14 +6,13 @@
 	async function deleteReward() {
 		if (confirm('Are you sure you want to delete this reward?')) {
 			console.log('Deleting reward');
-			const resp = await fetch('/api/reward/delete', {
+			await fetch('/api/reward/delete', {
 				method: 'POST',
 				body: JSON.stringify({
 					id,
 				}),
 			});
-			const data = await resp.json();
-			console.log(data);
+			window.location.reload();
 		}
 	}
 
