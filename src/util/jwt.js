@@ -25,7 +25,7 @@ export function getUserInfo(token) {
 		const privateKey = import.meta.env.VITE_PRIVATE_KEY;
 		const data = jwt.verify(token, privateKey);
 		return {
-			id: data.id,
+			id: data.userId,
 			displayName: data.displayName,
 			login: data.login,
 			profileImageUrl: data.profileImageUrl,
