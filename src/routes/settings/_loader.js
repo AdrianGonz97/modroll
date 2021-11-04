@@ -17,9 +17,14 @@ export default async function load({ fetch, session }) {
 
 			rewards = finalData[0].rewards;
 			userInfo = finalData[1];
-		} else {
+		} else if (resps[1].ok) {
+			const userInfo = await resps[1].json();
 			return {
 				props: { isConnected: true, rewards: null, userInfo },
+			};
+		} else {
+			return {
+				props: { isConnected: true, rewards: null, userInfo: null },
 			};
 		}
 		return {
