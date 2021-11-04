@@ -1,7 +1,5 @@
-import dotenv from 'dotenv';
-dotenv.config();
-
 const base = 'https://api.twitch.tv/helix/';
+const clientId = import.meta.env.VITE_CLIENT_ID;
 
 export async function get(endpoint, token, params = null) {
 	let url = base + endpoint;
@@ -11,7 +9,7 @@ export async function get(endpoint, token, params = null) {
 		method: 'GET',
 		headers: {
 			Authorization: `Bearer ${token}`,
-			'Client-Id': process.env['VITE_CLIENT_ID'],
+			'Client-Id': clientId,
 		},
 	});
 }
@@ -24,7 +22,7 @@ export async function post(endpoint, body, token, params = null) {
 		method: 'POST',
 		headers: {
 			Authorization: `Bearer ${token}`,
-			'Client-Id': process.env['VITE_CLIENT_ID'],
+			'Client-Id': clientId,
 			'Content-Type': 'application/json',
 		},
 		body,
@@ -39,7 +37,7 @@ export async function patch(endpoint, body, token, params = null) {
 		method: 'PATCH',
 		headers: {
 			Authorization: `Bearer ${token}`,
-			'Client-Id': process.env['VITE_CLIENT_ID'],
+			'Client-Id': clientId,
 			'Content-Type': 'application/json',
 		},
 		body,
@@ -54,7 +52,7 @@ export async function del(endpoint, token, params = null) {
 		method: 'DELETE',
 		headers: {
 			Authorization: `Bearer ${token}`,
-			'Client-Id': process.env['VITE_CLIENT_ID'],
+			'Client-Id': clientId,
 		},
 	});
 }

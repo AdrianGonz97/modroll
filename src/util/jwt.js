@@ -1,17 +1,17 @@
 import logger from '$logger';
-import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
-dotenv.config();
 
 export function getSignedToken(payload) {
-	return jwt.sign(payload, process.env['VITE_PRIVATE_KEY'], {
+	const privateKey = import.meta.env.VITE_PRIVATE_KEY;
+	return jwt.sign(payload, privateKey, {
 		expiresIn: payload.expires_in - 600,
 	});
 }
 
 export function getAccessToken(token) {
 	try {
-		const data = jwt.verify(token, process.env['VITE_PRIVATE_KEY']);
+		const privateKey = import.meta.env.VITE_PRIVATE_KEY;
+		const data = jwt.verify(token, privateKey);
 		const accessToken = data.access_token;
 		return accessToken;
 	} catch (err) {
@@ -22,7 +22,8 @@ export function getAccessToken(token) {
 
 export function getUserInfo(token) {
 	try {
-		const data = jwt.verify(token, process.env['VITE_PRIVATE_KEY']);
+		const privateKey = import.meta.env.VITE_PRIVATE_KEY;
+		const data = jwt.verify(token, privateKey);
 		return {
 			id: data.id,
 			displayName: data.displayName,
@@ -37,7 +38,8 @@ export function getUserInfo(token) {
 
 export function getUserToken(token) {
 	try {
-		const data = jwt.verify(token, process.env['VITE_PRIVATE_KEY']);
+		const privateKey = import.meta.env.VITE_PRIVATE_KEY;
+		const data = jwt.verify(token, privateKey);
 		return data;
 	} catch (err) {
 		logger.warn('JWT is expired');
@@ -49,14 +51,12 @@ export function getUserToken(token) {
 export async function refreshJWT(token) {
 	// refreshing oauth token
 	try {
+		const basePath = import.meta.env.VITE_BASE_PATH;
 		const data = jwt.decode(token);
-		const resp = await fetch(
-			`${process.env['VITE_BASE_PATH']}/api/oauth/refresh`,
-			{
-				method: 'POST',
-				body: JSON.stringify({ rtoken: data.refresh_token }),
-			}
-		);
+		const resp = await fetch(`${basePath}/api/oauth/refresh`, {
+			method: 'POST',
+			body: JSON.stringify({ rtoken: data.refresh_token }),
+		});
 		if (resp.ok) {
 			logger.info('Token has been refreshed');
 			const newOauthToken = await resp.json();

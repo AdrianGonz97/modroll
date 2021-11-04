@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import { browser } from '$app/env';
+// import { browser } from '$app/env';
 
 // export const user = writable(JSON.parse(localStorage.getItem('user')));
 export const user = writable({});

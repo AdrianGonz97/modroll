@@ -1,17 +1,17 @@
 import logger from '$logger';
 import getUserInfo from '../_user';
 import { oauth } from '../_oauth';
-import dotenv from 'dotenv';
-dotenv.config();
 
 export async function post({ body }) {
 	logger.info('Getting new refresh token');
-	const rtoken = JSON.parse(body).rtoken;
+	const clientId = import.meta.env.VITE_CLIENT_ID;
+	const clientSecret = import.meta.env.VITE_CLIENT_SECRET;
 
+	const rtoken = JSON.parse(body).rtoken;
 	const headers = { Accept: 'application/json' };
 	const params = new Map();
-	params.set('client_id', process.env['VITE_CLIENT_ID']);
-	params.set('client_secret', process.env['VITE_CLIENT_SECRET']);
+	params.set('client_id', clientId);
+	params.set('client_secret', clientSecret);
 	params.set('grant_type', 'refresh_token');
 	params.set('refresh_token', encodeURIComponent(rtoken));
 

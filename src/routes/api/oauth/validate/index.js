@@ -34,45 +34,15 @@ export async function post(request) {
 
 		if (resp.ok) {
 			// token is validated
-			const expiresIn = Date.now() + 60 * 60 * 1000;
-			// const validityCookie = cookie.serialize(
-			// 	'validUntil',
-			// 	expiresIn.toString(),
-			// 	{
-			// 		path: '/',
-			// 		httpOnly: true,
-			// 	}
-			// );
-			// const jwtCookie = cookie.serialize('jwt', jwt, {
-			// 	path: '/',
-			// 	httpOnly: true,
-			// });
-
+			const expiresIn = Date.now() + 5 * 60 * 1000;
 			return {
 				status: 200,
-				// headers: {
-				// 	'set-cookie': [jwtCookie, validityCookie],
-				// },
-				// body: { message: 'Access token is valid' },
 				body: { validUntil: expiresIn.toString(), jwt },
 			};
 		} else {
 			logger.warn('Reseting cookies');
-			// reset cookies
-			// const validityCookie = cookie.serialize('validUntil', '0', {
-			// 	path: '/',
-			// 	httpOnly: true,
-			// });
-			// const jwtCookie = cookie.serialize('jwt', '', {
-			// 	path: '/',
-			// 	httpOnly: true,
-			// });
 			return {
 				status: resp.status,
-				// headers: {
-				// 	'set-cookie': [jwtCookie, validityCookie],
-				// },
-				// body: { message: 'Invalid access token' },
 				body: { validUntil: '0', jwt: '' },
 			};
 		}

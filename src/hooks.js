@@ -1,8 +1,6 @@
 import cookie from 'cookie';
 import logger from '$logger';
 import { v4 as uuid } from '@lukeed/uuid';
-import dotenv from 'dotenv';
-dotenv.config();
 
 export const handle = async ({ request, resolve }) => {
 	const cookies = cookie.parse(request.headers.cookie || '');
@@ -34,10 +32,12 @@ export const handle = async ({ request, resolve }) => {
 		logger.info('Validating jwt');
 		// if jwt is no longer valid
 		try {
-			const resp = await fetch(
-				process.env['VITE_BASE_PATH'] + '/api/oauth/validate',
-				{ method: 'POST', body: JSON.stringify({ jwt: cookies.jwt }) }
-			);
+			const basePath = import.meta.env.VITE_BASE_PATH;
+
+			const resp = await fetch(basePath + '/api/oauth/validate', {
+				method: 'POST',
+				body: JSON.stringify({ jwt: cookies.jwt }),
+			});
 			if (resp.ok) {
 				logger.info('JWT is valid, setting cookies');
 				const data = await resp.json();

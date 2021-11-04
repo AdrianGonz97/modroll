@@ -3,20 +3,22 @@ import logger from '$logger';
 import getUserInfo from '../_user';
 import { oauth } from '../_oauth';
 import { getSignedToken } from '$util/jwt';
-import dotenv from 'dotenv';
-dotenv.config();
 
 export async function post({ body }) {
 	logger.info('Getting access token');
+	const clientId = import.meta.env.VITE_CLIENT_ID;
+	const clientSecret = import.meta.env.VITE_CLIENT_SECRET;
+	const basePath = import.meta.env.VITE_BASE_PATH;
+
 	const code = JSON.parse(body).code;
 
 	const urlParams = new Map();
 	const headers = { Accept: 'application/json' };
-	urlParams.set('client_id', process.env['VITE_CLIENT_ID']);
-	urlParams.set('client_secret', process.env['VITE_CLIENT_SECRET']);
+	urlParams.set('client_id', clientId);
+	urlParams.set('client_secret', clientSecret);
 	urlParams.set('code', code);
 	urlParams.set('grant_type', 'authorization_code');
-	urlParams.set('redirect_uri', `${process.env['VITE_BASE_PATH']}/login`);
+	urlParams.set('redirect_uri', `${basePath}/login`);
 
 	try {
 		const resp = await oauth('token', headers, null, urlParams);
