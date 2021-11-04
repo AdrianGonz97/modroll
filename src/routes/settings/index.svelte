@@ -8,7 +8,7 @@
 	import SettingsForm from '$lib/settings/SettingsForm.svelte';
 	import { generateState } from './state';
 	import { onMount } from 'svelte';
-	import { user } from '../../stores/userstore';
+	import { user } from '$store/userstore';
 
 	export let userInfo;
 	export let isConnected;

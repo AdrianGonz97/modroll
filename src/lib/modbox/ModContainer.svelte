@@ -1,6 +1,6 @@
 <script>
-	import { boxes, count, rollCount } from '../../stores/modstore';
-	import { currentMod, pastMods } from '../../stores/modstore';
+	import { boxes, count, rollCount } from '$store/modstore';
+	import { currentMod, pastMods } from '$store/modstore';
 	import ModBox from './ModBox.svelte';
 
 	let styled = '';

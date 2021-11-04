@@ -3,6 +3,7 @@ import { writable } from 'svelte/store';
 
 // export const user = writable(JSON.parse(localStorage.getItem('user')));
 export const user = writable({});
+export const activeRewardIds = writable([]);
 
 // if (browser) {
 // 	user.set(JSON.parse(localStorage.getItem('user')));

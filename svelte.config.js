@@ -15,6 +15,7 @@ const config = {
 				alias: {
 					$logger: path.resolve('src/logger'),
 					$util: path.resolve('src/util'),
+					$store: path.resolve('src/stores'),
 				},
 			},
 		},

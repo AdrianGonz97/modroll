@@ -3,7 +3,7 @@
 </script>
 
 <script>
-	import { min, max } from '../stores/modstore';
+	import { min, max } from '$store/modstore';
 	import Counter from '$lib/counter/Counter.svelte';
 	import RollButton from '$lib/RollButton.svelte';
 	import ModContainer from '$lib/modbox/ModContainer.svelte';

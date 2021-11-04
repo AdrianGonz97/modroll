@@ -1,5 +1,6 @@
 <script>
 	import { onMount, onDestroy } from 'svelte';
+	import { activeRewardIds } from '$store/userstore';
 	let socket;
 	let id;
 	let atoken;
@@ -14,8 +15,6 @@
 			const data = await resp.json();
 			id = data.userId;
 			atoken = data.token;
-
-			console.log(id, atoken);
 
 			// validate id and token here
 			if (id && atoken) {

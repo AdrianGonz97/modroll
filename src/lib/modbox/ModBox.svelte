@@ -1,6 +1,6 @@
 <script>
 	import { afterUpdate, onDestroy } from 'svelte';
-	import { users, winner } from '../../stores/modstore';
+	import { users, winner } from '$store/modstore';
 	export let num;
 	export let name;
 

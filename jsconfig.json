@@ -6,6 +6,7 @@
 			"$lib/*": ["src/lib/*"],
 			"$logger": ["src/logger"],
 			"$util": ["src/util"],
+			"$store": ["src/stores"],
 		}
 	},
 	"include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.svelte"]

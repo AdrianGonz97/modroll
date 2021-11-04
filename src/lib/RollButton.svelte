@@ -7,7 +7,7 @@
 		pastMods,
 		currentMod,
 		rollCount,
-	} from '../stores/modstore';
+	} from '$store/modstore';
 	let player;
 	let volume = 50;
 	let paused = true;
