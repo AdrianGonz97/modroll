@@ -34,7 +34,7 @@ export async function post(request) {
 
 		if (resp.ok) {
 			// token is validated
-			const expiresIn = Date.now() + 5 * 60 * 1000;
+			const expiresIn = Date.now() + 60 * 60 * 1000;
 			return {
 				status: 200,
 				body: { validUntil: expiresIn.toString(), jwt },

@@ -12,15 +12,34 @@
 					id,
 				}),
 			});
-			window.location.reload();
+			setTimeout(() => (window.location.href = '/settings'), 1000);
 		}
 	}
 
-	function stop() {
-		isActive = false;
+	async function stop() {
+		console.log(`Deactivating reward ${title}`);
+		const body = {
+			isActive: false,
+			rewardId: id,
+		};
+		const resp = await fetch('/api/reward/update', {
+			method: 'POST',
+			body: JSON.stringify(body),
+		});
+		setTimeout(() => (window.location.href = '/settings'), 1000);
 	}
-	function start() {
-		isActive = true;
+	async function start() {
+		// isActive = true;
+		console.log(`Activating reward ${title}`);
+		const body = {
+			isActive: true,
+			rewardId: id,
+		};
+		const resp = await fetch('/api/reward/update', {
+			method: 'POST',
+			body: JSON.stringify(body),
+		});
+		setTimeout(() => (window.location.href = '/settings'), 1000);
 	}
 </script>
 
@@ -28,13 +47,12 @@
 	<span class="group-name">Channel Reward:</span>
 	{#if isActive}
 		<span class={`watching-text ${isActive ? 'active' : ''}`}>{title}</span>
-		<button on:click|preventDefault={stop}>Stop Watching</button>
+		<button on:click={stop}>Stop Watching</button>
 	{:else}
 		<span class="watching-text">Not watching Rewards</span>
 		<div class="btn-grp">
-			<button on:click|preventDefault={start}>Start Watching</button>
-			<button on:click|preventDefault={deleteReward}>Delete Reward</button
-			>
+			<button on:click={start}>Start Watching</button>
+			<button on:click={deleteReward}>Delete Reward</button>
 		</div>
 	{/if}
 </div>

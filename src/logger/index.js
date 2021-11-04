@@ -1,4 +1,5 @@
-import { createLogger, format, transports } from 'winston';
+import pkg from 'winston';
+const { createLogger, format, transports } = pkg;
 const { combine, timestamp, printf, colorize, errors } = format;
 
 const myFormat = printf(({ level, message, timestamp, stack }) => {

@@ -7,13 +7,12 @@ export async function post(request) {
 	const jwt = request.locals.jwt;
 	const { access_token, userId } = getUserToken(jwt);
 
-	const id = JSON.parse(request.body).id; // id of reward redemption
-	const rewardId = JSON.parse(request.body).rewardId;
+	const { id, rewardId } = JSON.parse(request.body);
 
 	const params = new Map();
 	params.set('broadcaster_id', userId);
-	params.set('id', id);
-	params.set('reward_id', rewardId);
+	params.set('id', id); // id of redemption
+	params.set('reward_id', rewardId); // id of reward
 
 	const body = {
 		status: 'CANCELED',

@@ -34,7 +34,7 @@ export async function post({ body }) {
 			};
 			const jwtToken = getSignedToken(token);
 
-			const expiresIn = Date.now() + 5 * 60 * 1000;
+			const expiresIn = Date.now() + 60 * 60 * 1000;
 			const validityCookie = cookie.serialize(
 				'validUntil',
 				expiresIn.toString(),

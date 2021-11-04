@@ -1,13 +1,15 @@
 <script>
 	import { onMount, onDestroy } from 'svelte';
-	import { activeRewardIds } from '$store/userstore';
-	let socket;
-	let id;
-	let atoken;
-	let url;
-	let topics;
+	import {
+		activeRewardNames,
+		activeRewardIds,
+		bitAmount,
+	} from '$store/userstore';
+	import { users, min, max } from '$store/modstore';
+	let socket, id, atoken, url, topics, pingTimeout, pongTimeout;
 	let canConnect = false;
-	let pingTimeout;
+
+	$: console.log($activeRewardNames, $activeRewardIds, $bitAmount);
 
 	onMount(async () => {
 		try {
@@ -42,21 +44,72 @@
 		socket.onopen = (e) => {
 			const body = {
 				type: 'LISTEN',
-				// nonce: 'kjh1231288j',
 				data: {
 					topics,
 					auth_token: atoken,
 				},
 			};
 			socket.send(JSON.stringify(body));
-			console.log('connected!');
+			console.log('ws connected!');
 			pingTimeout = sendPing(socket);
 		};
 
 		socket.onmessage = (e) => {
-			const data = JSON.parse(e.data);
-			console.log(data);
-			if (data.type === 'PONG') pingTimeout = sendPing(socket);
+			const resp = JSON.parse(e.data);
+			console.log(resp);
+			if (resp.type === 'PONG') {
+				clearTimeout(pongTimeout);
+				pingTimeout = sendPing(socket);
+			} else if (resp.type === 'MESSAGE') {
+				const data = JSON.parse(resp.data.message);
+				console.log(data);
+				if (data.type === 'reward-redeemed') {
+					// validates the message is a valid number
+					const name = data.data.redemption.user.display_name;
+					const msg = data.data.redemption.user_input;
+					const rewardId = data.data.redemption.reward.id;
+					const redemptionId = data.data.redemption.id;
+
+					// if the reward id matches any active reward ids
+					const isValidReward = (id) => id === rewardId;
+
+					if (
+						$activeRewardIds.some(isValidReward) &&
+						!isNaN(msg) &&
+						parseInt(msg) >= $min &&
+						parseInt(msg) <= $max &&
+						$users.get(parseInt(msg)) === ''
+					) {
+						console.log(`Setting user ${name} to number ${msg}`);
+						users.set($users.set(parseInt(msg), name));
+					} else {
+						// if the number is taken or invalid
+						console.log(
+							`User ${name} input: ${msg} is invalid. Refunding.`
+						);
+						refundUser(redemptionId, rewardId);
+					}
+				} else if (data.type === 'MESSAGE') {
+					const {
+						user_name: name,
+						bits_used: cost,
+						chat_message: msg,
+					} = data.data.message.data;
+					const parsedMsg = msg.split();
+					// can't refund bits so do nothing if invalid
+					if (
+						cost >= $bitAmount &&
+						!isNaN(msg) &&
+						parseInt(msg) >= min &&
+						parseInt(msg) <= max &&
+						$users.get(msg) === ''
+					) {
+						$users.set(msg, name);
+					} else {
+						console.log('User input is invalid');
+					}
+				}
+			}
 		};
 
 		socket.onerror = (e) => {
@@ -75,26 +128,102 @@
 				type: 'PING',
 			};
 			socket.send(JSON.stringify(body));
-		}, 1000 * 60 * 1); // 1 min
+			pongTimeout = setTimeout(() => {
+				reconnect();
+			}, 10000); // send reconnect cmd if pong doesnt arrive in 10sec
+		}, 1000 * 60 * 1 + Math.floor(Math.random() * 1000 * 60 * 3)); // 1 min default with a random time between +0-3 mins
+	}
+
+	function reconnect() {
+		console.log('Reconnecting ws...');
+		const body = {
+			type: 'RECONNECT',
+		};
+		socket.send(JSON.stringify(body));
 	}
 
 	function close() {
 		socket.close();
 		clearTimeout(pingTimeout);
+		clearTimeout(pongTimeout);
 		socket = null;
+	}
+
+	async function refundUser(id, rewardId) {
+		const resp = await fetch('/api/reward/refund', {
+			method: 'POST',
+			body: JSON.stringify({
+				id,
+				rewardId,
+			}),
+		});
+		if (resp.ok) {
+			console.log('User has had their points refunded');
+		}
 	}
 
 	onDestroy(() => {
 		if (socket) socket.close();
 		clearTimeout(pingTimeout);
+		clearTimeout(pongTimeout);
 	});
 </script>
 
-<div>
-	<span>Automate:</span>
+<div class="container">
+	<div class="btn-con">
+		<span>Automate Modroll:</span>
+		{#if socket}
+			<button on:click={close}>Stop</button>
+		{:else}<button on:click={connect}>Start</button>{/if}
+	</div>
 	{#if socket}
-		<button on:click={close}>Disconnect</button>
-	{:else}<button on:click={connect}>Connect</button>{/if}
+		<div class="watching-text">
+			<span
+				>Reward Name: <b
+					>{$activeRewardNames.length === 0
+						? 'No active rewards'
+						: $activeRewardNames.join(', ')}</b
+				></span
+			>
+			<span
+				>Bit Amount: <b
+					>{$bitAmount === -1 ? 'No active' : $bitAmount} bits</b
+				></span
+			>
+		</div>
+	{/if}
 </div>
 
-<style></style>
+<style>
+	button {
+		padding-left: 1rem;
+		padding-right: 1rem;
+	}
+	.watching-text {
+		display: flex;
+		flex-direction: column;
+		justify-content: left;
+		gap: 0.5rem;
+	}
+	.container {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+	span {
+		display: flex;
+		justify-content: space-evenly;
+		text-align: left;
+	}
+	.btn-con {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.25rem;
+	}
+	b {
+		background-color: aquamarine;
+		padding: 0 1rem;
+		margin: 0 0.5rem;
+	}
+</style>

@@ -7,12 +7,11 @@ export async function post(request) {
 	const jwt = request.locals.jwt;
 	const { access_token, userId } = getUserToken(jwt);
 
-	const rewardId = JSON.parse(request.body).id;
-	const isActive = JSON.parse(request.body).isActive;
+	const { rewardId, isActive } = JSON.parse(request.body);
 
 	const params = new Map();
 	params.set('broadcaster_id', userId);
-	params.set('id', rewardId); //encodeURIComponent
+	params.set('id', rewardId);
 
 	const body = {
 		is_enabled: isActive,

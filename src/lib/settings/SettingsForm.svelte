@@ -1,9 +1,9 @@
 <script>
+	import { activeRewards, bitAmount } from '$store/userstore';
 	import CreatedReward from './CreatedReward.svelte';
-
 	export let rewards;
-	let isWatchingBits = true;
-	let bitAmount = 69;
+
+	$: activeRewards.set(rewards.filter((reward) => reward.isActive));
 
 	// reward inputs
 	let name;
@@ -29,8 +29,12 @@
 		}
 	}
 
-	function saveBitAmount() {}
-	function stopBitListing() {}
+	function saveBitAmount() {
+		bitAmount.set(bits);
+	}
+	function stopBitListing() {
+		bitAmount.set(-1);
+	}
 	// let the modroll sign-ins for 10 mins and cut it off, making it expire 24 hours
 </script>
 
@@ -89,23 +93,18 @@
 			<span class="group-name">Bits:</span>
 			<label>
 				Minimum Cost:
-				<input
-					type="number"
-					placeholder="ex. 500"
-					on:submit={saveBitAmount}
-					bind:value={bits}
-				/>
+				<input type="number" placeholder="ex. 500" bind:value={bits} />
 			</label>
-			<button on:click={saveBitAmount}>Save Amount</button>
+			<button on:click|preventDefault={saveBitAmount}>Save Amount</button>
 		</div>
 		<div class="form-group">
 			<span class="group-name">Currently Watching Bits:</span>
-			{#if isWatchingBits}
-				<span class="watching-text">{bitAmount} bits</span>
+			{#if $bitAmount > -1}
+				<span class="watching-text">{$bitAmount} bits</span>
 			{:else}
-				<span class="watching-text">Not watching Bits</span>
+				<span class="watching-text">Not listening for bits</span>
 			{/if}
-			<button disabled={!isWatchingBits} on:click={stopBitListing}
+			<button disabled={$bitAmount === -1} on:click={stopBitListing}
 				>Stop Listening</button
 			>
 		</div>
