@@ -168,12 +168,13 @@
 	}
 
 	function close() {
-		if(socket) socket.close();
-		clearTimeout(pingTimeout);
-		clearTimeout(pongTimeout);
-		socket = null;
-
-		toggleRewards(false);
+		if(socket) {
+			socket.close();
+			clearTimeout(pingTimeout);
+			clearTimeout(pongTimeout);
+			toggleRewards(false);
+			socket = null;
+		}
 	}
 
 	async function toggleRewards(isActive) {
@@ -227,9 +228,6 @@
 	}
 
 	onDestroy(() => {
-		// if (socket) socket.close();
-		// clearTimeout(pingTimeout);
-		// clearTimeout(pongTimeout);
 		close(socket);
 	});
 </script>
