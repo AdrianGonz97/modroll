@@ -100,7 +100,7 @@
 		</div>
 		<div
 			class={`form-group ${
-				$bitAmount === -1 && $bitAmount === null ? 'active' : 'inactive'
+				$bitAmount === -1 || $bitAmount === null ? 'inactive' : 'active'
 			}`}
 		>
 			<span class="group-name">Currently Watching Bits:</span>

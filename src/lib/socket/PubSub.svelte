@@ -112,6 +112,8 @@
 					const parsedMsg = msg.split();
 					// can't refund bits so do nothing if invalid
 					if (
+						$bitAmount !== null &&
+						$bitAmount !== -1 &&
 						cost >= $bitAmount &&
 						!isNaN(msg) &&
 						parseInt(msg) >= min &&
@@ -192,7 +194,7 @@
 	</div>
 	{#if socket}
 		<div class="watching-text">
-			<span
+			<span class="txt"
 				>Reward Name:
 				{#if $activeRewardNames.length === 0}
 					<b>No active rewards</b>
@@ -200,8 +202,11 @@
 					<b>{$activeRewardNames.join(', ')}</b>
 				{/if}</span
 			>
-			<span
+			<span class="txt"
 				>Bit Amount: <b
+					class={$bitAmount === -1 || $bitAmount === null
+						? 'inactive'
+						: ''}
 					>{$bitAmount === -1 || $bitAmount === null
 						? 'No active'
 						: $bitAmount} bits</b
@@ -217,10 +222,19 @@
 		padding-right: 1rem;
 	}
 	.watching-text {
-		display: flex;
-		flex-direction: column;
-		justify-content: left;
-		gap: 0.5rem;
+		display: grid;
+		grid-template-rows: repeat(2, 1fr);
+		grid-auto-flow: column;
+		grid-gap: 0.5rem;
+		/* flex-direction: column; */
+		/* justify-content: left; */
+		/* gap: 0.5rem; */
+	}
+	.txt {
+		display: grid;
+		grid-template-columns: 1fr 2fr;
+		grid-auto-flow: row;
+		/* grid-gap: 0.5rem; */
 	}
 	.container {
 		display: flex;
@@ -239,8 +253,15 @@
 		gap: 0.25rem;
 	}
 	b {
+		display: flex;
+		justify-content: center;
+		align-items: center;
 		background-color: aquamarine;
 		padding: 0 1rem;
 		margin: 0 0.5rem;
+		text-align: center;
+	}
+	.inactive {
+		background-color: rgb(255, 127, 127);
 	}
 </style>
