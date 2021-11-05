@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="/favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		
+
+		
+
+		<link rel="modulepreload" href="/app/start-d8d3a0bf.js">
+		<link rel="modulepreload" href="/app/chunks/vendor-52449c46.js">
+		<link rel="modulepreload" href="/app/pages/__layout.svelte-ed4e58f4.js">
+		<link rel="modulepreload" href="/app/chunks/stores-29330a01.js">
+		<link rel="modulepreload" href="/app/pages/settings/index.svelte-7474a01b.js">
+		<link rel="modulepreload" href="/app/chunks/userstore-84659ed4.js">
+		<link rel="stylesheet" href="/app/assets/start-61d1577b.css">
+		<link rel="stylesheet" href="/app/assets/pages/__layout.svelte-f0d9bd71.css">
+		<link rel="stylesheet" href="/app/assets/pages/settings/index.svelte-ae3d87cb.css">
+
+		<script type="module">
+			import { start } from "/app/start-d8d3a0bf.js";
+			start({
+				target: document.querySelector("#svelte"),
+				paths: {"base":"","assets":""},
+				session: {jwt:"",validUntil:"0"},
+				host: location.host,
+				route: true,
+				spa: false,
+				trailing_slash: "never",
+				hydrate: {
+					status: 200,
+					error: null,
+					nodes: [
+						import("/app/pages/__layout.svelte-ed4e58f4.js"),
+						import("/app/pages/settings/index.svelte-7474a01b.js")
+					],
+					page: {
+						host: location.host, // TODO this is redundant
+						path: "\u002Fsettings",
+						query: new URLSearchParams(""),
+						params: {}
+					}
+				}
+			});
+		</script>
+	</head>
+	<body>
+		<div id="svelte">
+
+
+<header class="svelte-1thmwwv"><div class="corner svelte-1thmwwv"><a href="https://github.com/AdrianGonz97/modroll" class="svelte-1thmwwv"><img class="github svelte-1thmwwv" src="/github.svg" alt="GitHub"></a></div>
+
+	<nav class="svelte-1thmwwv"><svg viewBox="0 0 2 3" aria-hidden="true" class="svelte-1thmwwv"><path d="M0,0 L1,2 C1.5,3 1.5,3 2,3 L2,0 Z" class="svelte-1thmwwv"></path></svg>
+		<ul class="svelte-1thmwwv"><li class="svelte-1thmwwv"><a sveltekit:prefetch href="/" class="svelte-1thmwwv">Home</a></li>
+			<li class="svelte-1thmwwv active"><a sveltekit:prefetch href="/settings" class="svelte-1thmwwv">Settings</a></li>
+			<li class="svelte-1thmwwv"><a sveltekit:prefetch href="/about" class="svelte-1thmwwv">About</a></li></ul>
+		<svg viewBox="0 0 2 3" aria-hidden="true" class="svelte-1thmwwv"><path d="M0,0 L0,3 C0.5,3 0.5,3 1,2 L2,0 Z" class="svelte-1thmwwv"></path></svg></nav>
+
+	<div class="corner svelte-1thmwwv"><a href="https://twitter.com/cokakoala_" class="svelte-1thmwwv"><img class="twitter svelte-1thmwwv" src="/twitter.svg" alt="Twitter"></a></div>
+</header>
+
+<main class="svelte-1yxbw3o"><a class="connection svelte-lk3pac">Connect to Twitch</a>
+<div class="settings-container svelte-bujqr"><div class="title-container svelte-bujqr"><span class="warning svelte-bujqr">Fields labeled with <span class="required svelte-bujqr">*</span> are required.</span>
+		<span class="warning svelte-bujqr">Created Rewards and Saved Settings</span></div>
+	<form class="svelte-bujqr"><div class="form-group svelte-bujqr"><span class="group-name svelte-bujqr">Channel Point Reward:</span>
+			<label class="svelte-bujqr"><span><span class="required svelte-bujqr">*</span> Reward Name:</span>
+				<input type="text" placeholder="ex. Modroll"></label>
+			<label class="svelte-bujqr"><span><span class="required svelte-bujqr">*</span> Point Cost:</span>
+				<input type="number" placeholder="ex. 50000"></label>
+			<label class="svelte-bujqr">Description
+				<textarea type="text" placeholder="ex. Pick a number between 1-50 for a chance of mod" class="svelte-bujqr"></textarea></label>
+			<button class="svelte-bujqr">Create Reward</button></div>
+		<div class="rewards svelte-bujqr"></div>
+		<div class="form-group svelte-bujqr"><span class="group-name svelte-bujqr">Bits:</span>
+			<label class="svelte-bujqr">Minimum Cost:
+				<input type="number" placeholder="ex. 500"></label>
+			<button class="svelte-bujqr">Save Amount</button></div>
+		<div class="form-group inactive svelte-bujqr"><span class="group-name svelte-bujqr">Currently Watching Bits:</span>
+			<span class="watching-text svelte-bujqr">Not listening for bits</span>
+			<button disabled class="svelte-bujqr">Stop Listening</button></div></form>
+</div></main>
+
+<footer class="svelte-1yxbw3o"><p class="svelte-1yxbw3o">Developed by <a href="https://twitter.com/cokakoala_" class="svelte-1yxbw3o">CokaKoala</a></p>
+</footer>
+
+
+
+			
+		</div>
+	</body>
+</html>

@@ -1,0 +1,17 @@
+import{S as at,i as ot,s as rt,k as j,e as l,t as s,a3 as lt,d as a,n as E,c as n,a as i,g as o,b as h,f as et,H as t,I as U}from"../../chunks/vendor-52449c46.js";const nt=!0,it=!1;function ht(st){let m,e,v,S,x,c,P,_,q,F,H,d,K,g,N,O,z,u,C,y,D,G,V,b,B,J,p,L,w,M,Q;return{c(){m=j(),e=l("div"),v=l("h1"),S=s("About this app"),x=j(),c=l("p"),P=s("This is a quickly made "),_=l("a"),q=s("SvelteKit"),F=s(` app
+		that uses much of the styling from the default template. Svelte is great,
+		I highly recommend it.`),H=j(),d=l("p"),K=s("This app features a "),g=l("a"),N=s("Twitch.tv"),O=s(` integration
+		that allows broadcasters to setup custom channel point rewards for their
+		audience for the purposes of rolling and randomly choosing amongst those
+		that redeemed the rewards. One use case is to roll for the status of moderator.`),z=j(),u=l("p"),C=s("If you want to check out the code itself, "),y=l("a"),D=s("here's a link to the github repository"),G=s("."),V=j(),b=l("p"),B=s(`Still under constructing. Not mobile friendly yet. I'm not a web
+		designer so it's ugly. :)`),J=j(),p=l("p"),L=s(`Inspired by
+		`),w=l("a"),M=s("TheFinie's"),Q=s(` original
+		modroll app.`),this.h()},l(f){lt('[data-svelte="svelte-1ine71f"]',document.head).forEach(a),m=E(f),e=n(f,"DIV",{class:!0});var r=i(e);v=n(r,"H1",{class:!0});var W=i(v);S=o(W,"About this app"),W.forEach(a),x=E(r),c=n(r,"P",{class:!0});var I=i(c);P=o(I,"This is a quickly made "),_=n(I,"A",{href:!0});var X=i(_);q=o(X,"SvelteKit"),X.forEach(a),F=o(I,` app
+		that uses much of the styling from the default template. Svelte is great,
+		I highly recommend it.`),I.forEach(a),H=E(r),d=n(r,"P",{class:!0});var k=i(d);K=o(k,"This app features a "),g=n(k,"A",{href:!0});var Y=i(g);N=o(Y,"Twitch.tv"),Y.forEach(a),O=o(k,` integration
+		that allows broadcasters to setup custom channel point rewards for their
+		audience for the purposes of rolling and randomly choosing amongst those
+		that redeemed the rewards. One use case is to roll for the status of moderator.`),k.forEach(a),z=E(r),u=n(r,"P",{class:!0});var A=i(u);C=o(A,"If you want to check out the code itself, "),y=n(A,"A",{href:!0});var Z=i(y);D=o(Z,"here's a link to the github repository"),Z.forEach(a),G=o(A,"."),A.forEach(a),V=E(r),b=n(r,"P",{class:!0});var $=i(b);B=o($,`Still under constructing. Not mobile friendly yet. I'm not a web
+		designer so it's ugly. :)`),$.forEach(a),J=E(r),p=n(r,"P",{class:!0});var T=i(p);L=o(T,`Inspired by
+		`),w=n(T,"A",{href:!0});var tt=i(w);M=o(tt,"TheFinie's"),tt.forEach(a),Q=o(T,` original
+		modroll app.`),T.forEach(a),r.forEach(a),this.h()},h(){document.title="About",h(v,"class","svelte-17j6j2t"),h(_,"href","https://kit.svelte.dev"),h(c,"class","svelte-17j6j2t"),h(g,"href","https://www.twitch.tv/"),h(d,"class","svelte-17j6j2t"),h(y,"href","https://github.com/AdrianGonz97/modroll"),h(u,"class","svelte-17j6j2t"),h(b,"class","svelte-17j6j2t"),h(w,"href","https://github.com/TheFinie/frostprimemodroll"),h(p,"class","svelte-17j6j2t"),h(e,"class","content svelte-17j6j2t")},m(f,R){et(f,m,R),et(f,e,R),t(e,v),t(v,S),t(e,x),t(e,c),t(c,P),t(c,_),t(_,q),t(c,F),t(e,H),t(e,d),t(d,K),t(d,g),t(g,N),t(d,O),t(e,z),t(e,u),t(u,C),t(u,y),t(y,D),t(u,G),t(e,V),t(e,b),t(b,B),t(e,J),t(e,p),t(p,L),t(p,w),t(w,M),t(p,Q)},p:U,i:U,o:U,d(f){f&&a(m),f&&a(e)}}}const dt=it,ut=nt,pt=!0;class ft extends at{constructor(m){super();ot(this,m,null,ht,rt,{})}}export{ft as default,dt as hydrate,pt as prerender,ut as router};

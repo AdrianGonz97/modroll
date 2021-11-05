@@ -9,20 +9,22 @@
 
 		
 
-		<link rel="modulepreload" href="/app/start-7563610a.js">
-		<link rel="modulepreload" href="/app/chunks/vendor-ded167ac.js">
-		<link rel="modulepreload" href="/app/pages/__layout.svelte-d747d641.js">
-		<link rel="modulepreload" href="/app/pages/index.svelte-7c75cd77.js">
+		<link rel="modulepreload" href="/app/start-d8d3a0bf.js">
+		<link rel="modulepreload" href="/app/chunks/vendor-52449c46.js">
+		<link rel="modulepreload" href="/app/pages/__layout.svelte-ed4e58f4.js">
+		<link rel="modulepreload" href="/app/chunks/stores-29330a01.js">
+		<link rel="modulepreload" href="/app/pages/index.svelte-ccb63f6c.js">
+		<link rel="modulepreload" href="/app/chunks/userstore-84659ed4.js">
 		<link rel="stylesheet" href="/app/assets/start-61d1577b.css">
-		<link rel="stylesheet" href="/app/assets/pages/__layout.svelte-d4a776d8.css">
-		<link rel="stylesheet" href="/app/assets/pages/index.svelte-b3dab5f9.css">
+		<link rel="stylesheet" href="/app/assets/pages/__layout.svelte-f0d9bd71.css">
+		<link rel="stylesheet" href="/app/assets/pages/index.svelte-55718ba4.css">
 
 		<script type="module">
-			import { start } from "/app/start-7563610a.js";
+			import { start } from "/app/start-d8d3a0bf.js";
 			start({
 				target: document.querySelector("#svelte"),
 				paths: {"base":"","assets":""},
-				session: {},
+				session: {jwt:"",validUntil:"0"},
 				host: location.host,
 				route: true,
 				spa: false,
@@ -31,12 +33,12 @@
 					status: 200,
 					error: null,
 					nodes: [
-						import("/app/pages/__layout.svelte-d747d641.js"),
-						import("/app/pages/index.svelte-7c75cd77.js")
+						import("/app/pages/__layout.svelte-ed4e58f4.js"),
+						import("/app/pages/index.svelte-ccb63f6c.js")
 					],
 					page: {
 						host: location.host, // TODO this is redundant
-						path: "/",
+						path: "\u002F",
 						query: new URLSearchParams(""),
 						params: {}
 					}
@@ -48,52 +50,59 @@
 		<div id="svelte">
 
 
-<header class="svelte-16clqn3"><div class="corner svelte-16clqn3"><a href="https://github.com/AdrianGonz97/modroll" class="svelte-16clqn3"><img src="/github.svg" alt="GitHub" class="svelte-16clqn3"></a></div>
+<header class="svelte-1thmwwv"><div class="corner svelte-1thmwwv"><a href="https://github.com/AdrianGonz97/modroll" class="svelte-1thmwwv"><img class="github svelte-1thmwwv" src="/github.svg" alt="GitHub"></a></div>
 
-	<nav class="svelte-16clqn3"><svg viewBox="0 0 2 3" aria-hidden="true" class="svelte-16clqn3"><path d="M0,0 L1,2 C1.5,3 1.5,3 2,3 L2,0 Z" class="svelte-16clqn3"></path></svg>
-		<ul class="svelte-16clqn3"><li class="svelte-16clqn3 active"><a sveltekit:prefetch href="/" class="svelte-16clqn3">Home</a></li>
-			<li class="svelte-16clqn3"><a sveltekit:prefetch href="/about" class="svelte-16clqn3">About</a></li></ul>
-		<svg viewBox="0 0 2 3" aria-hidden="true" class="svelte-16clqn3"><path d="M0,0 L0,3 C0.5,3 0.5,3 1,2 L2,0 Z" class="svelte-16clqn3"></path></svg></nav>
+	<nav class="svelte-1thmwwv"><svg viewBox="0 0 2 3" aria-hidden="true" class="svelte-1thmwwv"><path d="M0,0 L1,2 C1.5,3 1.5,3 2,3 L2,0 Z" class="svelte-1thmwwv"></path></svg>
+		<ul class="svelte-1thmwwv"><li class="svelte-1thmwwv active"><a sveltekit:prefetch href="/" class="svelte-1thmwwv">Home</a></li>
+			<li class="svelte-1thmwwv"><a sveltekit:prefetch href="/settings" class="svelte-1thmwwv">Settings</a></li>
+			<li class="svelte-1thmwwv"><a sveltekit:prefetch href="/about" class="svelte-1thmwwv">About</a></li></ul>
+		<svg viewBox="0 0 2 3" aria-hidden="true" class="svelte-1thmwwv"><path d="M0,0 L0,3 C0.5,3 0.5,3 1,2 L2,0 Z" class="svelte-1thmwwv"></path></svg></nav>
 
-	<div class="corner svelte-16clqn3"><a href="https://twitter.com/cokakoala_" class="svelte-16clqn3"><img class="twitter svelte-16clqn3" src="/twitter.svg" alt="Twitter"></a></div>
+	<div class="corner svelte-1thmwwv"><a href="https://twitter.com/cokakoala_" class="svelte-1thmwwv"><img class="twitter svelte-1thmwwv" src="/twitter.svg" alt="Twitter"></a></div>
 </header>
 
-<main class="svelte-1izrdc8">
+<main class="svelte-1yxbw3o">
 
-<section class="svelte-5gdv5z"><h1 class="svelte-5gdv5z">
-		Rolly for Le Mod
-	</h1>
+<section class="svelte-1ibeh9m"><h1 class="svelte-1ibeh9m">Rolly for Le Mod</h1>
 
-	<h2>Edit the numbers below to adjust the quantity</h2>
-	<div class="counters svelte-5gdv5z"><div class="container svelte-1dkq6vb"><div>Min Number</div>
-	<div class="counter svelte-1dkq6vb"><button aria-label="Decrease the counter by one" class="svelte-1dkq6vb"><svg aria-hidden="true" viewBox="0 0 1 1" class="svelte-1dkq6vb"><path d="M0,0.5 L1,0.5" class="svelte-1dkq6vb"></path></svg></button>
-
-		<div class="counter-viewport svelte-1dkq6vb"><div class="counter-digits svelte-1dkq6vb" style="transform: translate(0, 0%)"><input style="top: -100%" aria-hidden="true" value="2" class="svelte-1dkq6vb">
-				<input type="number" class="svelte-1dkq6vb" value="1"></div></div>
-
-		<button aria-label="Increase the counter by one" class="svelte-1dkq6vb"><svg aria-hidden="true" viewBox="0 0 1 1" class="svelte-1dkq6vb"><path d="M0,0.5 L1,0.5 M0.5,0 L0.5,1" class="svelte-1dkq6vb"></path></svg></button></div>
+	<div class="container svelte-zmiphn"><div class="btn-con svelte-zmiphn"><span class="svelte-zmiphn">Automate Modroll:</span>
+		<button class="svelte-zmiphn">Start</button></div>
+	
 </div>
-		<div class="container svelte-1dkq6vb"><div>Max Number</div>
-	<div class="counter svelte-1dkq6vb"><button aria-label="Decrease the counter by one" class="svelte-1dkq6vb"><svg aria-hidden="true" viewBox="0 0 1 1" class="svelte-1dkq6vb"><path d="M0,0.5 L1,0.5" class="svelte-1dkq6vb"></path></svg></button>
+	<h2 class="svelte-1ibeh9m">Edit the numbers below to adjust the quantity</h2>
+	<div class="counters svelte-1ibeh9m"><div class="container svelte-1qdacbr"><div>Min Number</div>
+	<div class="counter svelte-1qdacbr"><button aria-label="Decrease the counter by one" class="svelte-1qdacbr"><svg aria-hidden="true" viewBox="0 0 1 1" class="svelte-1qdacbr"><path d="M0,0.5 L1,0.5" class="svelte-1qdacbr"></path></svg></button>
 
-		<div class="counter-viewport svelte-1dkq6vb"><div class="counter-digits svelte-1dkq6vb" style="transform: translate(0, 0%)"><input style="top: -100%" aria-hidden="true" value="51" class="svelte-1dkq6vb">
-				<input type="number" class="svelte-1dkq6vb" value="50"></div></div>
+		<div class="counter-viewport svelte-1qdacbr"><div class="counter-digits svelte-1qdacbr" style="transform: translate(0, 0%)"><input style="top: -100%" aria-hidden="true" value="2" class="svelte-1qdacbr">
+				<input type="number" class="svelte-1qdacbr" value="1"></div></div>
 
-		<button aria-label="Increase the counter by one" class="svelte-1dkq6vb"><svg aria-hidden="true" viewBox="0 0 1 1" class="svelte-1dkq6vb"><path d="M0,0.5 L1,0.5 M0.5,0 L0.5,1" class="svelte-1dkq6vb"></path></svg></button></div>
+		<button aria-label="Increase the counter by one" class="svelte-1qdacbr"><svg aria-hidden="true" viewBox="0 0 1 1" class="svelte-1qdacbr"><path d="M0,0.5 L1,0.5 M0.5,0 L0.5,1" class="svelte-1qdacbr"></path></svg></button></div>
+</div>
+		<div class="container svelte-1qdacbr"><div>Max Number</div>
+	<div class="counter svelte-1qdacbr"><button aria-label="Decrease the counter by one" class="svelte-1qdacbr"><svg aria-hidden="true" viewBox="0 0 1 1" class="svelte-1qdacbr"><path d="M0,0.5 L1,0.5" class="svelte-1qdacbr"></path></svg></button>
+
+		<div class="counter-viewport svelte-1qdacbr"><div class="counter-digits svelte-1qdacbr" style="transform: translate(0, 0%)"><input style="top: -100%" aria-hidden="true" value="51" class="svelte-1qdacbr">
+				<input type="number" class="svelte-1qdacbr" value="50"></div></div>
+
+		<button aria-label="Increase the counter by one" class="svelte-1qdacbr"><svg aria-hidden="true" viewBox="0 0 1 1" class="svelte-1qdacbr"><path d="M0,0.5 L1,0.5 M0.5,0 L0.5,1" class="svelte-1qdacbr"></path></svg></button></div>
 </div></div>
-	<div class="roll-container svelte-kvjbd"><button  class="svelte-kvjbd">CLICK ME TO ROLL</button>
-	<div class="volume-container svelte-kvjbd"><span>Drum Volume: 50%</span>
-		<input type="range" min="0" max="100" class="svelte-kvjbd" value="50"></div>
+	<div class="roll-container svelte-14x8rgv"><button  class="svelte-14x8rgv">CLICK ME TO ROLL</button>
+	<div class="volume-container svelte-14x8rgv"><span>Drum Volume: <b class="svelte-14x8rgv">50%</b></span>
+		<input type="range" min="0" max="100" class="svelte-14x8rgv" value="50"></div>
 	<audio src="drumroll.mp3" paused></audio>
 </div>
-	<div class="container svelte-ndqtur"><div class="stats svelte-ndqtur"><span class="svelte-ndqtur">Roll #0</span>
-		<span class="svelte-ndqtur">Current Mod: <strong>None</strong></span>
-		<span class="svelte-ndqtur">Past Winners: [
-				 <strong>None</strong>
-				 <strong>None</strong>
+	<div class="container svelte-i420fk"><div class="stats svelte-i420fk"><span class="svelte-i420fk">Roll <strong class="svelte-i420fk">#0</strong></span>
+		<span class="svelte-i420fk">Current Mod: <strong class="svelte-i420fk">None</strong></span>
+		<span class="svelte-i420fk">Past Winners: [
+				 <strong class="svelte-i420fk">None</strong>
+				 <strong class="svelte-i420fk">None</strong>
 			]
-		</span></div>
-	<div style="--rows-lg: 10; --rows-md: 17;" class="svelte-ndqtur"><div class="name-container svelte-1ytalfs"><span class="svelte-1ytalfs">1</span>
+		</span>
+		<button class="clear svelte-i420fk">Clear All</button>
+		<div class="how svelte-i420fk"><span class="tit svelte-i420fk">Enter with:</span>
+			<span class="instructions svelte-i420fk">Channel Reward: <strong class="svelte-i420fk"></strong></span>
+			<span class="instructions svelte-i420fk">Bits (1 entry only): <strong class="svelte-i420fk">-1 bits</strong></span></div></div>
+	<div class="con svelte-i420fk" style="--rows-lg: 10; --rows-md: 17;"><div class="name-container svelte-1ytalfs"><span class="svelte-1ytalfs">1</span>
 	<input aria-label="Username" placeholder="" class="svelte-1ytalfs" value="">
 </div><div class="name-container svelte-1ytalfs"><span class="svelte-1ytalfs">2</span>
 	<input aria-label="Username" placeholder="" class="svelte-1ytalfs" value="">
@@ -197,7 +206,7 @@
 </div>
 </section></main>
 
-<footer class="svelte-1izrdc8"><p>Developed by <a href="https://twitter.com/cokakoala_" class="svelte-1izrdc8">CokaKoala</a></p>
+<footer class="svelte-1yxbw3o"><p class="svelte-1yxbw3o">Developed by <a href="https://twitter.com/cokakoala_" class="svelte-1yxbw3o">CokaKoala</a></p>
 </footer>
 
 
