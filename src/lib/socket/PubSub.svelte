@@ -190,16 +190,6 @@
 			<button on:click={close}>Stop</button>
 		{:else}<button on:click={connect}>Start</button>{/if}
 	</div>
-	<!-- <div>
-		<label>
-			Bit Amount:
-			<input
-				type="number"
-				placeholder="ex. 500"
-				bind:value={$bitAmount}
-			/>
-		</label>
-	</div> -->
 	{#if socket}
 		<div class="watching-text">
 			<span
@@ -212,7 +202,9 @@
 			>
 			<span
 				>Bit Amount: <b
-					>{$bitAmount === -1 ? 'No active' : $bitAmount} bits</b
+					>{$bitAmount === -1 || $bitAmount === null
+						? 'No active'
+						: $bitAmount} bits</b
 				></span
 			>
 		</div>

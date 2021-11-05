@@ -98,15 +98,20 @@
 			</label>
 			<button on:click|preventDefault={saveBitAmount}>Save Amount</button>
 		</div>
-		<div class={`form-group ${$bitAmount > -1 ? 'active' : 'inactive'}`}>
+		<div
+			class={`form-group ${
+				$bitAmount === -1 && $bitAmount === null ? 'active' : 'inactive'
+			}`}
+		>
 			<span class="group-name">Currently Watching Bits:</span>
 			{#if $bitAmount && $bitAmount > -1}
 				<span class="watching-text">{$bitAmount} bits</span>
 			{:else}
 				<span class="watching-text">Not listening for bits</span>
 			{/if}
-			<button disabled={$bitAmount === -1} on:click={stopBitListening}
-				>Stop Listening</button
+			<button
+				disabled={$bitAmount === -1 || $bitAmount === null}
+				on:click={stopBitListening}>Stop Listening</button
 			>
 		</div>
 	</form>
