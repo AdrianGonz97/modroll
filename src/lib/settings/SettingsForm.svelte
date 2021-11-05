@@ -31,8 +31,9 @@
 
 	function saveBitAmount() {
 		bitAmount.set(bits);
+		localStorage.set('bitAmount', $bitAmount);
 	}
-	function stopBitListing() {
+	function stopBitListening() {
 		bitAmount.set(-1);
 	}
 	// let the modroll sign-ins for 10 mins and cut it off, making it expire 24 hours
@@ -97,14 +98,14 @@
 			</label>
 			<button on:click|preventDefault={saveBitAmount}>Save Amount</button>
 		</div>
-		<div class="form-group">
+		<div class={`form-group ${$bitAmount > -1 ? 'active' : 'inactive'}`}>
 			<span class="group-name">Currently Watching Bits:</span>
-			{#if $bitAmount > -1}
+			{#if $bitAmount && $bitAmount > -1}
 				<span class="watching-text">{$bitAmount} bits</span>
 			{:else}
 				<span class="watching-text">Not listening for bits</span>
 			{/if}
-			<button disabled={$bitAmount === -1} on:click={stopBitListing}
+			<button disabled={$bitAmount === -1} on:click={stopBitListening}
 				>Stop Listening</button
 			>
 		</div>
@@ -165,5 +166,12 @@
 	.watching-text {
 		text-align: center;
 		font-size: 1.4rem;
+	}
+
+	.active {
+		border: 1px solid rgba(3, 172, 20, 1);
+	}
+	.inactive {
+		border: 1px solid rgba(255, 0, 0, 1);
 	}
 </style>
