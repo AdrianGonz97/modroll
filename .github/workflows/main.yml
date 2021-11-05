@@ -17,8 +17,8 @@ jobs:
 
     - name: Build
       run: |
-        npm install
-        npm run-script build
+        yarn
+        yarn build
       env:
         VITE_CLIENT_ID: ${{ secrets.VITE_CLIENT_ID }}
         VITE_CLIENT_SECRET: ${{ secrets.VITE_CLIENT_SECRET }}
