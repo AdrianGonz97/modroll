@@ -3,7 +3,9 @@
 	import CreatedReward from './CreatedReward.svelte';
 	export let rewards;
 
-	$: activeRewards.set(rewards.filter((reward) => reward.isActive));
+	$: if (rewards) {
+		activeRewards.set(rewards.filter((reward) => reward.isActive));
+	}
 
 	// reward inputs
 	let name;

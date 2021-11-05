@@ -197,7 +197,7 @@
 			<span class="txt"
 				>Reward Name:
 				{#if $activeRewardNames.length === 0}
-					<b>No active rewards</b>
+					<b class="inactive">No active rewards</b>
 				{:else}
 					<b>{$activeRewardNames.join(', ')}</b>
 				{/if}</span

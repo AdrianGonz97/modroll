@@ -12,7 +12,6 @@
 
 	export let userInfo;
 	export let isConnected;
-	// export let updatedValidity = false; // can remove later
 	export let rewards = [];
 	let url;
 
@@ -30,9 +29,6 @@
 			`&state=${state}`;
 
 		user.set(userInfo);
-
-		// hack to reload once validity state is initially
-		// if (updatedValidity) window.location.reload(); // remove later
 	});
 
 	async function logout() {
