@@ -1,4 +1,5 @@
 <script>
+	// TODO: Have start button activate all rewards
 	import { onMount, onDestroy } from 'svelte';
 	import {
 		activeRewards,
@@ -116,8 +117,8 @@
 					console.log(data.data);
 					console.log(name, cost, msg);
 
-					const regex = /([^ "]*\Cheer[^ "]*)/g; // removes all cheers
-					const parsedMsg = msg.replace(regex, '');
+					const regex = /([^ "]*\CHEER[^ "]*)/g; // removes all cheers
+					const parsedMsg = msg.toUpperCase().replace(regex, '');
 					const final = parsedMsg.replace(/\s/g, '');
 					// checks if user already used bits before
 					let alreadyUsedBits = false;
