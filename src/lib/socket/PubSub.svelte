@@ -87,22 +87,25 @@
 					// if the reward id matches any active reward ids
 					const isValidReward = (id) => id === rewardId;
 
-					if (
-						$activeRewardIds.some(isValidReward) &&
-						!isNaN(msg) &&
-						parseInt(msg) >= $min &&
-						parseInt(msg) <= $max &&
-						$users.get(parseInt(msg)) === ''
-					) {
-						console.log(`Setting user ${name} to number ${msg}`);
-						users.set($users.set(parseInt(msg), name));
-					} else {
-						// if the number is taken or invalid
-						console.log(
-							`User ${name} input: ${msg} is invalid. Refunding.`
-						);
-						refundUser(redemptionId, rewardId);
+					// check if it's a valid reward
+					if ($activeRewardIds.some(isValidReward)) {
+						if (
+							!isNaN(msg) &&
+							parseInt(msg) >= $min &&
+							parseInt(msg) <= $max &&
+							$users.get(parseInt(msg)) === ''
+						) {
+							console.log(`Setting user ${name} to number ${msg}`);
+							users.set($users.set(parseInt(msg), name));
+						} else {
+							// if the number is taken or invalid
+							console.log(
+								`User ${name} input: ${msg} is invalid. Refunding.`
+							);
+							refundUser(redemptionId, rewardId);
+						}
 					}
+
 				} else if (data.message_type === 'bits_event') {
 					const {
 						user_name: name,
