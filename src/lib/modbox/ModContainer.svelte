@@ -50,11 +50,11 @@
 		<div class="how">
 			<span class="tit">Enter with:</span>
 			<span class="instructions"
-				>Channel Reward: <strong>{$activeRewardNames.join(', ')}</strong
+				>Channel Reward: <strong>{$activeRewardNames.length !== 0 ? $activeRewardNames.join(', ') : 'None'}</strong
 				></span
 			>
 			<span class="instructions"
-				>Bits (1 entry only): <strong>{$bitAmount} bits</strong></span
+				>Bits (1 entry only): <strong>{$bitAmount === -1 || $bitAmount === null ? 'None' : `${$bitAmount} bits`}</strong></span
 			>
 		</div>
 	</div>

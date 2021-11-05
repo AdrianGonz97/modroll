@@ -1,5 +1,4 @@
 <script>
-	// TODO: Have start button activate all rewards
 	import { onMount, onDestroy } from 'svelte';
 	import {
 		activeRewards,
