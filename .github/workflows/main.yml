@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - name: Build
+      run: |
+        npm install
+        npm run-script build
+      env:
+        VITE_CLIENT_ID: ${{ secrets.VITE_CLIENT_ID }}
+        VITE_CLIENT_SECRET: ${{ secrets.VITE_CLIENT_SECRET }}
+        VITE_BASE_PATH: ${{ secrets.VITE_BASE_PATH }}
+        VITE_PRIVATE_KEY: ${{ secrets.VITE_PRIVATE_KEY }}
+
+    - name: Deploy
+      uses: JamesIves/github-pages-deploy-action@releases/v3
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        BRANCH: gh-pages
+        FOLDER: build
