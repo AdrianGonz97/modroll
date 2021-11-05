@@ -1,6 +1,7 @@
 <script>
 	import { onMount, onDestroy } from 'svelte';
 	import {
+		activeRewards,
 		activeRewardNames,
 		activeRewardIds,
 		bitAmount,
@@ -32,13 +33,26 @@
 		}
 	});
 
-	function connect() {
+	async function connect() {
 		if (!canConnect) {
 			alert(
 				'You must connect a twitch account before using this feature! This can be done in the settings page.'
 			);
 			window.location.href = '/settings';
 		}
+		try {
+			const resp = await fetch('/api/reward/get');
+			if (resp.ok) {
+				const data = await resp.json();
+				console.log(data);
+				activeRewards.set(
+					data.rewards.filter((reward) => reward.isActive)
+				);
+			}
+		} catch (err) {
+			console.log('Cannot get user rewards');
+		}
+
 		socket = new WebSocket(url);
 
 		socket.onopen = (e) => {
@@ -179,11 +193,12 @@
 	{#if socket}
 		<div class="watching-text">
 			<span
-				>Reward Name: <b
-					>{$activeRewardNames.length === 0
-						? 'No active rewards'
-						: $activeRewardNames.join(', ')}</b
-				></span
+				>Reward Name:
+				{#if $activeRewardNames.length === 0}
+					<b>No active rewards</b>
+				{:else}
+					<b>{$activeRewardNames.join(', ')}</b>
+				{/if}</span
 			>
 			<span
 				>Bit Amount: <b
