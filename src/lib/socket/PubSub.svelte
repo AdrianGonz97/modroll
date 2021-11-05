@@ -34,26 +34,19 @@
 		}
 	});
 
-	async function connect() {
+	// activates all rewards and starts the WS
+	function connect() {
 		if (!canConnect) {
 			alert(
 				'You must connect a twitch account before using this feature! This can be done in the settings page.'
 			);
 			window.location.href = '/settings';
 		}
-		try {
-			const resp = await fetch('/api/reward/get');
-			if (resp.ok) {
-				const data = await resp.json();
-				console.log(data);
-				activeRewards.set(
-					data.rewards.filter((reward) => reward.isActive)
-				);
-			}
-		} catch (err) {
-			console.log('Cannot get user rewards');
-		}
+		toggleRewards(true);
+		startWS();
+	}
 
+	function startWS() {
 		socket = new WebSocket(url);
 
 		socket.onopen = (e) => {
@@ -175,10 +168,49 @@
 	}
 
 	function close() {
-		socket.close();
+		if(socket) socket.close();
 		clearTimeout(pingTimeout);
 		clearTimeout(pongTimeout);
 		socket = null;
+
+		toggleRewards(false);
+	}
+
+	async function toggleRewards(isActive) {
+		try {
+			// disables all rewards
+			const rewardsResp = await fetch('/api/reward/get');
+			if (rewardsResp.ok) {
+				const rewardsData = await rewardsResp.json();
+				console.log(rewardsData);
+				const rewardIds = rewardsData.rewards.map((reward) => reward.id);
+				const bodies = rewardIds.map((id) => {
+					return {
+						rewardId: id,
+						isActive,
+					};
+				});
+				// disables all rewards to hide from users
+				const promises = bodies.map(body => fetch('/api/reward/update', {
+					method: 'POST', 
+					body : JSON.stringify(body)
+				}));
+
+				const resp = await Promise.all(promises);
+				if(resp.every(res => res.ok)) {
+					const dataPromises = resp.map(result => result.json());
+					const results = await Promise.all(dataPromises);
+					
+					// all rewards created by this app are now active
+					activeRewards.set(
+						rewardsData.rewards.filter((reward) => isActive)
+					);
+				}
+
+			}
+		} catch (err) {
+			console.log('Cannot get user rewards');
+		}
 	}
 
 	async function refundUser(id, rewardId) {
@@ -195,9 +227,10 @@
 	}
 
 	onDestroy(() => {
-		if (socket) socket.close();
-		clearTimeout(pingTimeout);
-		clearTimeout(pongTimeout);
+		// if (socket) socket.close();
+		// clearTimeout(pingTimeout);
+		// clearTimeout(pongTimeout);
+		close(socket);
 	});
 </script>
 
