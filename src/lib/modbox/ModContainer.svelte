@@ -14,7 +14,7 @@
 
 <div class="container">
 	<div class="stats">
-		<span>Roll #{$rollCount}</span>
+		<span>Roll <strong>#{$rollCount}</strong></span>
 		<span>Current Mod: <strong>{$currentMod}</strong></span>
 		<span>
 			Past Winners: [{#each $pastMods as modName}
@@ -23,7 +23,7 @@
 			]
 		</span>
 	</div>
-	<div style={styled}>
+	<div class="con" style={styled}>
 		{#each $boxes as box (box.num)}
 			<ModBox {...box} />
 		{/each}
@@ -34,6 +34,11 @@
 	div {
 		display: grid;
 		grid-gap: 1rem;
+		/* color: black; */
+	}
+
+	.con {
+		padding-bottom: 1rem;
 	}
 
 	.container {
@@ -46,7 +51,8 @@
 		border-radius: 20px;
 		padding: 1.5rem;
 		box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
-		background-color: var(--tertiary-color);
+		/* background-color: var(--tertiary-color); */
+		background-color: rgba(0, 0, 0, 0.2);
 	}
 
 	span {
@@ -58,6 +64,10 @@
 		display: flex;
 		flex-direction: column;
 		margin-bottom: 1rem;
+	}
+
+	strong {
+		color: var(--accent-color);
 	}
 
 	@media (min-width: 710px) {

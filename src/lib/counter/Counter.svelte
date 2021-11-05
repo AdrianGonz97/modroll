@@ -23,20 +23,33 @@
 <div class="container">
 	<div>{label}</div>
 	<div class="counter">
-		<button on:click={() => ($count = decrement($count))} aria-label="Decrease the counter by one">
+		<button
+			on:click={() => ($count = decrement($count))}
+			aria-label="Decrease the counter by one"
+		>
 			<svg aria-hidden="true" viewBox="0 0 1 1">
 				<path d="M0,0.5 L1,0.5" />
 			</svg>
 		</button>
 
 		<div class="counter-viewport">
-			<div class="counter-digits" style="transform: translate(0, {100 * offset}%)">
-				<input style="top: -100%" aria-hidden="true" value={Math.floor($displayed_count + 1)} />
+			<div
+				class="counter-digits"
+				style="transform: translate(0, {100 * offset}%)"
+			>
+				<input
+					style="top: -100%"
+					aria-hidden="true"
+					value={Math.floor($displayed_count + 1)}
+				/>
 				<input type="number" bind:value={$count} />
 			</div>
 		</div>
 
-		<button on:click={() => ($count = increment($count))} aria-label="Increase the counter by one">
+		<button
+			on:click={() => ($count = increment($count))}
+			aria-label="Increase the counter by one"
+		>
 			<svg aria-hidden="true" viewBox="0 0 1 1">
 				<path d="M0,0.5 L1,0.5 M0.5,0 L0.5,1" />
 			</svg>
@@ -128,6 +141,10 @@
 	/* Firefox */
 	input[type='number'] {
 		-moz-appearance: textfield;
+	}
+
+	button {
+		cursor: pointer;
 	}
 
 	@media (min-width: 475px) {

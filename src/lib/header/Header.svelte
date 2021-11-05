@@ -5,7 +5,7 @@
 <header>
 	<div class="corner">
 		<a href="https://github.com/AdrianGonz97/modroll">
-			<img src="/github.svg" alt="GitHub" />
+			<img class="github" src="/github.svg" alt="GitHub" />
 		</a>
 	</div>
 
@@ -64,7 +64,7 @@
 	nav {
 		display: flex;
 		justify-content: center;
-		--background: rgba(255, 255, 255, 0.7);
+		--background: rgba(0, 0, 0, 0.5);
 	}
 
 	svg {
@@ -76,6 +76,11 @@
 	.twitter {
 		filter: invert(43%) sepia(94%) saturate(1159%) hue-rotate(179deg)
 			brightness(90%) contrast(92%);
+	}
+
+	.github {
+		filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(346deg)
+			brightness(103%) contrast(103%);
 	}
 
 	path {
@@ -117,13 +122,13 @@
 		height: 100%;
 		align-items: center;
 		padding: 0 1em;
-		color: var(--heading-color);
 		font-weight: 700;
 		font-size: 0.8rem;
 		text-transform: uppercase;
 		letter-spacing: 0.1em;
 		text-decoration: none;
 		transition: color 0.2s linear;
+		color: var(--text-color);
 	}
 
 	a:hover {

@@ -34,10 +34,16 @@
 		flex-direction: column;
 		align-items: center;
 		flex: 1;
+		color: #d1d0c5;
 	}
 
 	h1 {
 		width: 100%;
+		color: #d1d0c5;
+	}
+
+	h2 {
+		color: #d1d0c5;
 	}
 
 	.counters {

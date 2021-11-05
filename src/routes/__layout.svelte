@@ -32,6 +32,9 @@
 		align-items: center;
 		padding: 40px;
 	}
+	p {
+		color: #646669;
+	}
 
 	footer a {
 		font-weight: bold;

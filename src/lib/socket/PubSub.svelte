@@ -218,23 +218,29 @@
 
 <style>
 	button {
-		padding-left: 1rem;
-		padding-right: 1rem;
+		padding: 0.3rem 2rem;
+		cursor: pointer;
+		border: none;
+		background-color: rgba(0, 0, 0, 0.5);
+		/* color: var(--text-color); */
+		color: var(--accent-color);
+		margin-left: 1rem;
+	}
+	button:hover {
+		background-color: var(--text-color);
+		color: black;
+		transition: all 0.25s ease;
 	}
 	.watching-text {
 		display: grid;
 		grid-template-rows: repeat(2, 1fr);
 		grid-auto-flow: column;
 		grid-gap: 0.5rem;
-		/* flex-direction: column; */
-		/* justify-content: left; */
-		/* gap: 0.5rem; */
 	}
 	.txt {
 		display: grid;
 		grid-template-columns: 1fr 2fr;
 		grid-auto-flow: row;
-		/* grid-gap: 0.5rem; */
 	}
 	.container {
 		display: flex;
@@ -260,6 +266,7 @@
 		padding: 0 1rem;
 		margin: 0 0.5rem;
 		text-align: center;
+		color: black;
 	}
 	.inactive {
 		background-color: rgb(255, 127, 127);

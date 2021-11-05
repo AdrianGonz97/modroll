@@ -51,7 +51,7 @@
 <div class="roll-container">
 	<button on:click={handleClick} disabled={!paused}>CLICK ME TO ROLL</button>
 	<div class="volume-container">
-		<span>Drum Volume: {volume}%</span>
+		<span>Drum Volume: <b>{volume}%</b></span>
 		<input
 			type="range"
 			min="0"
@@ -81,6 +81,18 @@
 		flex-direction: row;
 		align-items: center;
 		justify-content: center;
+	}
+	button {
+		cursor: pointer;
+		border: none;
+	}
+
+	button:hover {
+		background-color: var(--text-color);
+		transition: all 0.25s ease;
+	}
+	b {
+		color: var(--accent-color);
 	}
 
 	@media (min-width: 440px) {

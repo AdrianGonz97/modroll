@@ -57,13 +57,31 @@
 		padding: 1rem 2rem;
 		border: 1px solid rgba(0, 0, 0, 0.1);
 		text-align: center;
+		background-color: rgba(0, 0, 0, 0.1);
+		margin: 1rem 0 0 0;
 	}
 	a:hover {
 		box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
 		text-decoration: none;
-		transition: all 0.1s ease;
+		transition: all 0.25s ease;
+		background-color: var(--text-color);
+		color: var(--primary-color);
 	}
 	b {
 		font-size: 1.1rem;
+		color: var(--accent-color);
+	}
+
+	button {
+		background-color: rgba(0, 0, 0, 0.1);
+		border: none;
+		color: var(--text-color);
+		padding: 0.4rem 0;
+	}
+	button:hover {
+		background-color: var(--text-color);
+		color: var(--primary-color);
+		transition: all 0.25s ease;
+		cursor: pointer;
 	}
 </style>

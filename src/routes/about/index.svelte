@@ -22,21 +22,34 @@
 	<h1>About this app</h1>
 
 	<p>
-		This is a quickly made <a href="https://kit.svelte.dev">SvelteKit</a> app that uses much of the styling
-		from the default template. Svelte is great, I highly recommend it.
+		This is a quickly made <a href="https://kit.svelte.dev">SvelteKit</a> app
+		that uses much of the styling from the default template. Svelte is great,
+		I highly recommend it.
 	</p>
 
 	<p>
-		If you want to check out the code itself, <a href="https://github.com/AdrianGonz97/modroll"
+		This app features a <a href="https://www.twitch.tv/">Twitch.tv</a> integration
+		that allows broadcasters to setup custom channel point rewards for their
+		audience for the purposes of rolling and randomly choosing amongst those
+		that redeemed the rewards. One use case is to roll for the status of moderator.
+	</p>
+
+	<p>
+		If you want to check out the code itself, <a
+			href="https://github.com/AdrianGonz97/modroll"
 			>here's a link to the github repository</a
 		>.
 	</p>
 
-	<p>Still under constructing. Not mobile friendly yet. I'm not a web designer so it's ugly. :)</p>
+	<p>
+		Still under constructing. Not mobile friendly yet. I'm not a web
+		designer so it's ugly. :)
+	</p>
 
 	<p>
 		Inspired by
-		<a href="https://github.com/TheFinie/frostprimemodroll">TheFinie's</a> original modroll app.
+		<a href="https://github.com/TheFinie/frostprimemodroll">TheFinie's</a> original
+		modroll app.
 	</p>
 </div>
 
@@ -45,5 +58,9 @@
 		width: 100%;
 		max-width: var(--column-width);
 		margin: var(--column-margin-top) auto 0 auto;
+	}
+	p,
+	h1 {
+		color: var(--text-color);
 	}
 </style>

@@ -146,11 +146,12 @@
 	}
 	.form-group {
 		padding: 1rem;
-		border: 1px solid rgba(0, 0, 0, 0.1);
+		border: 1px solid var(--text-color);
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
 		gap: 1rem;
+		background-color: rgba(0, 0, 0, 0.1);
 	}
 	.rewards {
 		display: flex;
@@ -180,5 +181,8 @@
 	}
 	.inactive {
 		border: 1px solid rgba(255, 0, 0, 1);
+	}
+	button {
+		cursor: pointer;
 	}
 </style>

@@ -100,6 +100,7 @@
 	}
 	button {
 		width: 100%;
+		cursor: pointer;
 	}
 	.inactive {
 		color: red;
