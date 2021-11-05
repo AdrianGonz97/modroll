@@ -6,13 +6,17 @@
 
 	$: if (name) {
 		$users.set(num, name);
-		// console.log('name changed:', num);
+		// users.set($users.set(num, name));
+		console.log('name changed:', num);
 	}
+
+	// $: users.set($users.set(num, name));
 
 	// hacky way to get around the inability to delete the last character
 	function handleDelete(e) {
 		if (e.key === 'Delete' || e.key === 'Backspace') {
-			$users.set(num, '');
+			// $users.set(num, '');
+			users.set($users.set(num, ''));
 		}
 	}
 
@@ -22,7 +26,8 @@
 			name = savedName;
 			// console.log('saved name: ', savedName);
 		} else {
-			$users.set(num, '');
+			// $users.set(num, '');
+			users.set($users.set(num, ''));
 			// console.log('initializing: ', num);
 		}
 	});

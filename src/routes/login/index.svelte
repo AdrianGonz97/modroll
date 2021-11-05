@@ -17,11 +17,6 @@
 			});
 
 			if (resp.ok) {
-				const res = await fetch('/api/user');
-				if (res.ok) {
-					const data = await res.json();
-					localStorage.setItem('user', JSON.stringify(data));
-				}
 				isLoading = false;
 				window.location.href = '/settings';
 			} else {
@@ -50,5 +45,6 @@
 <style>
 	h2 {
 		text-align: center;
+		color: var(--text-color);
 	}
 </style>

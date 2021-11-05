@@ -120,7 +120,7 @@
 						parseInt(msg) <= max &&
 						$users.get(msg) === ''
 					) {
-						$users.set(msg, name);
+						users.set($users.set(parseInt(msg), name));
 					} else {
 						console.log('User input is invalid');
 					}

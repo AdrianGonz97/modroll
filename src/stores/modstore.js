@@ -1,6 +1,5 @@
 import { writable, derived } from 'svelte/store';
-
-export const users = writable(new Map());
+import { browser } from '$app/env';
 
 export let winner = writable({ name: 'None', num: 0 });
 export let currentMod = writable('None');
@@ -22,3 +21,15 @@ export const boxes = derived([min, max], ([$min, $max]) => {
 	}
 	return list;
 });
+
+export const users = writable(new Map());
+
+if (browser) {
+	const json = localStorage.getItem('userList');
+	const map = new Map(JSON.parse(json));
+	users.set(map);
+	users.subscribe(
+		(val) =>
+			(localStorage.userList = JSON.stringify(Array.from(val.entries())))
+	);
+}

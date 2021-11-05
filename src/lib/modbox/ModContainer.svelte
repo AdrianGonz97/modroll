@@ -1,7 +1,18 @@
 <script>
-	import { boxes, count, rollCount } from '$store/modstore';
-	import { currentMod, pastMods } from '$store/modstore';
 	import ModBox from './ModBox.svelte';
+	import { boxes, count, rollCount } from '$store/modstore';
+	import { currentMod, pastMods, users } from '$store/modstore';
+	import { onMount, onDestroy } from 'svelte';
+
+	let saveInterval; // used for intervally saving the user list
+	onMount(() => {
+		saveInterval = setInterval(() => {
+			users.set($users);
+		}, 5000);
+	});
+	onDestroy(() => {
+		clearInterval(saveInterval);
+	});
 
 	let styled = '';
 	$: {
@@ -9,6 +20,18 @@
 		const rowsLg = Math.ceil($count / 5);
 		const rowsMd = Math.ceil($count / 3);
 		styled = `--rows-lg: ${rowsLg}; --rows-md: ${rowsMd};`;
+	}
+
+	function clearNames() {
+		if (confirm('Are you really sure you want to clear ALL the NAMES?')) {
+			if (
+				confirm('OK, yeah. But seriously though, ARE YOU REALLY SURE?')
+			) {
+				console.log('Clearing all names');
+				localStorage.removeItem('userList');
+				window.location.reload();
+			}
+		}
 	}
 </script>
 
@@ -22,6 +45,7 @@
 			{/each}
 			]
 		</span>
+		<button class="clear" on:click={clearNames}>Clear All</button>
 	</div>
 	<div class="con" style={styled}>
 		{#each $boxes as box (box.num)}
@@ -34,7 +58,6 @@
 	div {
 		display: grid;
 		grid-gap: 1rem;
-		/* color: black; */
 	}
 
 	.con {
@@ -64,10 +87,26 @@
 		display: flex;
 		flex-direction: column;
 		margin-bottom: 1rem;
+		position: relative;
 	}
 
 	strong {
 		color: var(--accent-color);
+	}
+
+	.clear {
+		position: absolute;
+		top: 0;
+		left: 35rem;
+		width: 6rem;
+		padding: 0.25rem 1rem;
+		cursor: pointer;
+		border: none;
+	}
+
+	.clear:hover {
+		background-color: var(--text-color);
+		transition: all 0.25s ease;
 	}
 
 	@media (min-width: 710px) {
