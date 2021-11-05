@@ -2,6 +2,7 @@
 	import ModBox from './ModBox.svelte';
 	import { boxes, count, rollCount } from '$store/modstore';
 	import { currentMod, pastMods, users } from '$store/modstore';
+	import { activeRewardNames, bitAmount } from '$store/userstore';
 	import { onMount, onDestroy } from 'svelte';
 
 	let saveInterval; // used for intervally saving the user list
@@ -46,6 +47,16 @@
 			]
 		</span>
 		<button class="clear" on:click={clearNames}>Clear All</button>
+		<div class="how">
+			<span class="tit">Enter with:</span>
+			<span class="instructions"
+				>Channel Reward: <strong>{$activeRewardNames.join(', ')}</strong
+				></span
+			>
+			<span class="instructions"
+				>Bits (1 entry only): <strong>{$bitAmount} bits</strong></span
+			>
+		</div>
 	</div>
 	<div class="con" style={styled}>
 		{#each $boxes as box (box.num)}
@@ -94,6 +105,10 @@
 		color: var(--accent-color);
 	}
 
+	.tit {
+		text-decoration: underline;
+	}
+
 	.clear {
 		position: absolute;
 		top: 0;
@@ -102,6 +117,19 @@
 		padding: 0.25rem 1rem;
 		cursor: pointer;
 		border: none;
+	}
+
+	.how {
+		position: absolute;
+		top: 0;
+		left: -24rem;
+		display: flex;
+		flex-direction: column;
+		min-width: 340px;
+	}
+
+	.instructions {
+		text-align: left;
 	}
 
 	.clear:hover {

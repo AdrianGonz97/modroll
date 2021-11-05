@@ -103,24 +103,36 @@
 						);
 						refundUser(redemptionId, rewardId);
 					}
-				} else if (data.type === 'MESSAGE') {
+				} else if (data.message_type === 'bits_event') {
 					const {
 						user_name: name,
 						bits_used: cost,
 						chat_message: msg,
-					} = data.data.message.data;
-					const parsedMsg = msg.split();
+					} = data.data;
+
+					console.log(data.data);
+					console.log(name, cost, msg);
+
+					const regex = /([^ "]*\Cheer[^ "]*)/g; // removes all cheers
+					const parsedMsg = msg.replace(regex, '');
+					const final = parsedMsg.replace(/\s/g, '');
+					// checks if user already used bits before
+					let alreadyUsedBits = false;
+					$users.forEach((val, key, map) => {
+						if (val === name + '-') alreadyUsedBits = true;
+					});
 					// can't refund bits so do nothing if invalid
 					if (
 						$bitAmount !== null &&
 						$bitAmount !== -1 &&
 						cost >= $bitAmount &&
-						!isNaN(msg) &&
-						parseInt(msg) >= min &&
-						parseInt(msg) <= max &&
-						$users.get(msg) === ''
+						!isNaN(final) &&
+						parseInt(final) >= $min &&
+						parseInt(final) <= $max &&
+						$users.get(parseInt(final)) === '' &&
+						!alreadyUsedBits
 					) {
-						users.set($users.set(parseInt(msg), name));
+						users.set($users.set(parseInt(final), name + '-'));
 					} else {
 						console.log('User input is invalid');
 					}
