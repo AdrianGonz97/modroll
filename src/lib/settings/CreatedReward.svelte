@@ -63,7 +63,7 @@
 			>
 		</div>
 		<div class="btn-grp">
-			<button on:click|preventDefault={start}>Start Watching</button>
+			<!-- <button on:click|preventDefault={start}>Start Watching</button> -->
 			<button on:click|preventDefault={deleteReward}>Delete Reward</button
 			>
 		</div>
