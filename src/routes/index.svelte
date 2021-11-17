@@ -1,13 +1,8 @@
-<script context="module">
-	export const prerender = true;
-</script>
-
 <script>
 	import { min, max } from '$store/modstore';
 	import Counter from '$lib/counter/Counter.svelte';
 	import RollButton from '$lib/RollButton.svelte';
 	import ModContainer from '$lib/modbox/ModContainer.svelte';
-	import PubSub from '$lib/socket/PubSub.svelte';
 	// chat box for calling chat dumb when they pick already taken number "what an idiot!"
 </script>
 
@@ -18,7 +13,6 @@
 <section>
 	<h1>Rolly for Le Mod</h1>
 
-	<PubSub />
 	<h2>Edit the numbers below to adjust the quantity</h2>
 	<div class="counters">
 		<Counter count={min} label="Min Number" />

@@ -17,9 +17,6 @@
 			<li class:active={$page.path === '/'}>
 				<a sveltekit:prefetch href="/">Home</a>
 			</li>
-			<li class:active={$page.path === '/settings'}>
-				<a sveltekit:prefetch href="/settings">Settings</a>
-			</li>
 			<li class:active={$page.path === '/about'}>
 				<a sveltekit:prefetch href="/about">About</a>
 			</li>

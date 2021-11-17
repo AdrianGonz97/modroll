@@ -23,15 +23,22 @@
 
 	<p>
 		This is a quickly made <a href="https://kit.svelte.dev">SvelteKit</a> app
-		that uses much of the styling from the default template. Svelte is great,
-		I highly recommend it.
+		that uses much of the styling from the default template since I can't make
+		anything look pretty :). Svelte is great though, I highly recommend it.
 	</p>
 
 	<p>
-		This app features a <a href="https://www.twitch.tv/">Twitch.tv</a> integration
-		that allows broadcasters to setup custom channel point rewards for their
-		audience for the purposes of rolling and randomly choosing amongst those
-		that redeemed the rewards. One use case is to roll for the status of moderator.
+		This app is a simplified version of the <a
+			href="https://github.com/AdrianGonz97/auto-modroll"
+			>Auto-Modroll Web App</a
+		>. This app allows you to manually input any amount of usernames into a
+		raffle. A drum roll is played during the selection process.
+	</p>
+
+	<p>
+		The intention of this app is to randomly select users that have entered
+		into the raffle for a chance of mod. The app can also be repurposed for
+		just randomly drawing users for any reason.
 	</p>
 
 	<p>
@@ -39,11 +46,6 @@
 			href="https://github.com/AdrianGonz97/modroll"
 			>here's a link to the github repository</a
 		>.
-	</p>
-
-	<p>
-		Still under constructing. Not mobile friendly yet. I'm not a web
-		designer so it's ugly. :)
 	</p>
 
 	<p>

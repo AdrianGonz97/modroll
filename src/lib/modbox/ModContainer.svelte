@@ -2,7 +2,6 @@
 	import ModBox from './ModBox.svelte';
 	import { boxes, count, rollCount } from '$store/modstore';
 	import { currentMod, pastMods, users } from '$store/modstore';
-	import { activeRewardNames, bitAmount } from '$store/userstore';
 	import { onMount, onDestroy } from 'svelte';
 
 	let saveInterval; // used for intervally saving the user list
@@ -46,23 +45,13 @@
 			{/each}
 			]
 		</span>
-		<button class="clear" on:click={clearNames}>Clear All</button>
-		<div class="how">
-			<span class="tit">Enter with:</span>
-			<span class="instructions"
-				>Channel Reward: <strong>{$activeRewardNames.length !== 0 ? $activeRewardNames.join(', ') : 'None'}</strong
-				></span
-			>
-			<span class="instructions"
-				>Bits (1 entry only): <strong>{$bitAmount === -1 || $bitAmount === null ? 'None' : `${$bitAmount} bits`}</strong></span
-			>
-		</div>
 	</div>
 	<div class="con" style={styled}>
 		{#each $boxes as box (box.num)}
 			<ModBox {...box} />
 		{/each}
 	</div>
+	<button class="clear" on:click={clearNames}>Clear All</button>
 </div>
 
 <style>
@@ -85,7 +74,6 @@
 		border-radius: 20px;
 		padding: 1.5rem;
 		box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
-		/* background-color: var(--tertiary-color); */
 		background-color: rgba(0, 0, 0, 0.2);
 	}
 
@@ -104,32 +92,13 @@
 	strong {
 		color: var(--accent-color);
 	}
-
-	.tit {
-		text-decoration: underline;
-	}
-
 	.clear {
-		position: absolute;
-		top: 0;
-		left: 35rem;
+		position: relative;
+		/* left: 70%; */
 		width: 6rem;
 		padding: 0.25rem 1rem;
 		cursor: pointer;
 		border: none;
-	}
-
-	.how {
-		position: absolute;
-		top: 0;
-		left: -24rem;
-		display: flex;
-		flex-direction: column;
-		min-width: 340px;
-	}
-
-	.instructions {
-		text-align: left;
 	}
 
 	.clear:hover {
